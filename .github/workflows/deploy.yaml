@@ -18,12 +18,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Upload files via SFTP
-        uses: n0bel/Pi-Action-Install-SFTP-Windows@v1.0.2
+        uses: appleboy/sftp-action@master
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.NAME }}
           password: ${{ secrets.PASSWORD }}
-          protocol: SFTP
           port: 22
-          local-dir: ./ 
-          server-dir: ./
+          local_dir: './'
+          remote_dir: './'
