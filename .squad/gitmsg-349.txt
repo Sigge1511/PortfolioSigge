@@ -1,9 +1,0 @@
-Orchestration, session, decision, and agent logs for CMS risk checks (issue #349) merged.
-
-- Orchestration log: .squad/orchestration-log/2026-03-21T1532Z-scribe.md
-- Session log: .squad/log/2026-03-21T1532Z-issue-349-cms-risks.md
-- Decision log: .squad/decisions/decisions.md (merged, deduped)
-- Agent histories: hecate, nyx, vespera, rowan, freya updated
-- Inbox cleared.
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>

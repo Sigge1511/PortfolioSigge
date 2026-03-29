@@ -38,6 +38,6 @@
 ## Project Context
 
 - **Owner:** MajaSigfeldt
-- **Stack:** TBD (to be defined per active repo/task)
-- **Description:** A collaborative engineering squad setup that can plan, build, test, and manage software work.
-- **Created:** 2026-03-02T15:53:08Z
+- **Stack:** ASP.NET Core (C#) + React/TypeScript (Vite)
+- **Description:** PortfolioSigge — a personal portfolio web application with a .NET backend and React frontend.
+- **Created:** 2026-03-29T19:15:00Z
