@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy:
     name: SFTP Deployment
@@ -20,7 +23,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.NAME }}
           password: ${{ secrets.PASSWORD }}
-          protocol: sftp
+          protocol: SFTP
           port: 22
           local-dir: ./ 
           server-dir: ./
