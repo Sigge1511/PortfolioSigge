@@ -7,6 +7,28 @@
 
 ## Learnings
 
+### 2026-07-09: Post-build security review — Issue #1 Portfolio Page Setup (commit 43c14b3 + River's fixes)
+- **Scope:** Post-implementation gate review of the full portfolio frontend: `index.html`, `App.tsx`, `projects.ts`, `App.css`, `index.css`.
+- **All 3 pre-build mandatories confirmed:** Title = "Sigge — Developer Portfolio" ✅; CSP meta tag in `<head>` ✅; zero `dangerouslySetInnerHTML` ✅ (grep-verified).
+- **River's fixes verified:** `aria-hidden={!isExpanded}` correctly inverts `isExpanded` on the card-details div ✅. `connect-src 'self'` replaces `connect-src 'none'` ✅.
+- **CSP posture:** `style-src 'unsafe-inline'` is the only non-ideal directive — acceptable for Vite/React v1, negligible practical XSS risk since `script-src` remains `'self'`. `frame-ancestors` cannot be set via meta CSP (browser spec limitation); remains a deployment-phase concern covered by the `.htaccess` template.
+- **XSS: clean.** Static data model eliminates the primary risk category entirely. All content flows through React JSX auto-escaping. Template literal IDs (`details-${project.id}`) use hardcoded static values, never user input.
+- **External links:** Only one external link (GitHub footer). Has `rel="noopener noreferrer"`. Absent `target="_blank"` is intentional and more secure (no new browsing context). `noreferrer` still suppresses the Referer header on navigation.
+- **No sensitive data.** No API keys, tokens, internal paths, or PII beyond the developer's public self-identification.
+- **Deployment gate (not merge gate):** `.htaccess` HTTP security headers template must be deployed to Strato before go-live — specifically `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, and HSTS after HTTPS is verified.
+- **Pattern principle (new):** On a static portfolio, the meta CSP is a defence-in-depth layer, not the primary security boundary — it cannot set `frame-ancestors`. The HTTP headers layer (`.htaccess`) is mandatory for clickjacking and MIME-sniffing protection and must be treated as a go-live gate separate from the merge gate.
+- **Verdict: APPROVED FOR MERGE.**
+
+### 2026-07-09: Pre-build security review — Issue #1 Portfolio Page Setup (React 19 + Vite static site)
+- **Scope:** Static portfolio SPA — React 19, TypeScript, Vite, ASP.NET Core backend (unused for this issue), Strato hosting target.
+- **Threat model:** Very low attack surface by design (no user input, no auth, no DB, no API calls). Primary risk is developer habit: accidental `dangerouslySetInnerHTML` use is the only realistic XSS vector. Secondary risks are clickjacking, MIME-sniffing, and referrer leakage — all mitigated via HTTP headers.
+- **Dependency posture:** All packages current (React 19.2.4, Vite 8.0.1, TS 5.9.3). No CVEs found. Established baseline: run `npm audit --audit-level=high` in CI when pipeline is set up.
+- **index.html findings (MEDIUM):** Two mandatory changes before merge — (1) update `<title>` from scaffolding default "portfoliosigge.client" to real portfolio name; (2) add CSP meta tag as fallback. Charset and viewport already correct.
+- **CSP for Strato (Apache .htaccess):** Authored full `.htaccess` template with `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, CSP, and deferred HSTS (only after HTTPS confirmed). `connect-src 'none'` correct for fully static site — must become `connect-src 'self'` if backend API calls are added in a future issue.
+- **Coding rules established:** `dangerouslySetInnerHTML` banned for all project data fields. All project content must render via JSX interpolation (React auto-escaping). External links must carry `rel="noopener noreferrer"`. No secrets in source or committed `.env` files.
+- **Green-lit:** Static hardcoded data, CSS class toggle for reveal, pure CSS dark mode, Vite build toolchain, React 19 JSX rendering patterns. Build approved to start.
+- **Pattern principle (new for frontend):** For a static site, the security posture is set almost entirely at build time (no `dangerouslySetInnerHTML`, no secrets) and deploy time (HTTP headers). A clean `npm audit` baseline before first commit is the equivalent of the CMS pre-merge checklist for this stack.
+
 ### 2026-06-14: Pre-build security review — CmsPost domain overhaul (InternalHeadline + SubjectTagRegistry)
 - **Scope:** CmsPostInternalHeadline field, CmsPostSubjectTagRegistryGrain (List + Search gRPC RPCs), RegisterTagAsync internal method, ICmsPostEditorService.GetPostAsync.
 - **Highest risk finding (HIGH/BLOCKER):** InternalHeadline is an editor-private field (could contain sensitive internal drafts like "Q2 redundancy notice"). The existing `HandleGetCmsPostState` gRPC handler has no visible `IsAdminCaller` gate — InternalHeadline could leak via this read path. Confirmed existing precedent: all 9 CMS mutation handlers call `IsAdminCaller`, but read handlers are not uniformly gated. Pattern principle: **every handler that returns InternalHeadline must be admin-gated, including read handlers.**

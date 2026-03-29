@@ -1,4 +1,4 @@
-// TypeScript interfaces are structural and compile-time only, unlike C# interfaces which are nominal contracts enforced by the runtime type system.
+// TS interfaces are structural (shape-based) and erased at runtime — unlike C# interfaces, which are nominal contracts enforced by the CLR.
 export interface Project {
   id: string;
   title: string;
@@ -7,7 +7,7 @@ export interface Project {
   details: string;
 }
 
-// `export` makes this value available to other modules, similar to how `public` exposes members across assemblies/namespaces in C#.
+// Project[] is TS's typed array — equivalent to C# List<Project> or Project[]. `export` ≈ C# `public`.
 export const projects: Project[] = [
   {
     id: "portfolio",

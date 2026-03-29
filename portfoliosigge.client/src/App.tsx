@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import type { Project } from './projects'; // Type-only imports are erased from emitted JavaScript, similar to how C# `using` brings interface/type names into scope without generating runtime code.
+import type { Project } from './projects'; // `import type` is erased at build time — TS uses it for type-checking only, like how C# generic constraints exist at compile time but not in IL.
 import { projects } from './projects';
 import './App.css';
 
+// Props interface = the data contract for a component, like a C# ViewModel or a constructor's parameter object.
 interface ProjectCardProps {
   project: Project;
   isExpanded: boolean;
@@ -12,13 +13,14 @@ interface ProjectCardProps {
 function ProjectCard({ project, isExpanded, onToggle }: ProjectCardProps) {
   return (
     <article
-      className={`project-card ${isExpanded ? 'is-expanded' : ''}`} // This conditional className uses the same ternary pattern you'd use in C# (for example in Blazor component attributes).
+      className={`project-card ${isExpanded ? 'is-expanded' : ''}`}
     >
       <div className="project-card-header">
         <h3 className="project-card-title">{project.title}</h3>
       </div>
       <p className="project-card-description">{project.description}</p>
       <div className="project-card-tech">
+        {/* `key` gives React a stable identity per element — like a primary key in EF Core change tracking. */}
         {project.techStack.map((tech) => (
           <span key={tech} className="badge">
             {tech}
@@ -41,6 +43,7 @@ function ProjectCard({ project, isExpanded, onToggle }: ProjectCardProps) {
         className="card-details"
         role="region"
         aria-label={`Details for ${project.title}`}
+        aria-hidden={!isExpanded}
       >
         <p>{project.details}</p>
       </div>
@@ -49,11 +52,12 @@ function ProjectCard({ project, isExpanded, onToggle }: ProjectCardProps) {
 }
 
 function App() {
-  const [expandedId, setExpandedId] = useState<string | null>(null); // React state here is like a C# property with get/set plus INotifyPropertyChanged-style UI refresh behavior handled by React.
+  // useState returns [value, setter] — like a C# property with get/set that auto-triggers INotifyPropertyChanged so the UI re-renders.
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const handleToggle = (id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));
-  }; // This handler mirrors a common C# event delegate pattern: receive an identifier, then route state changes through one focused method.
+  };
 
   return (
     <div className="portfolio">
@@ -82,10 +86,8 @@ function App() {
           Projects
         </h2>
         <div className="project-grid">
-          {projects.map(
-            (
-              p, // `.map()` in React is analogous to C# LINQ `.Select()` followed by Razor `@foreach` rendering each projected item.
-            ) => (
+          {/* .map() is like LINQ .Select() + Razor @foreach — transform data into UI elements. */}
+          {projects.map((p) => (
               <ProjectCard
                 key={p.id}
                 project={p}

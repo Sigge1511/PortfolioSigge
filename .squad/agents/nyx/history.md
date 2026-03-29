@@ -7,6 +7,8 @@
 
 ## Learnings
 
+- Created a comprehensive test plan and manual verification checklist for the PortfolioSigge React/TypeScript project, covering build, type, UI, accessibility, security, and pedagogical comment requirements. Ensures all acceptance criteria and regression risks are addressed for PR review and QA.
+
 ### 2026-03-21T15xxZ: Issue #349 — CMS risk checks
 - Added [Trait("Category", "Unit")] to 18 CMS test classes (GrainStates, CmsModels, Service.Tests) to enable CI lane filtering. Created docs/cms/test-categories.md documenting boundaries and filter commands.
 - Confirmed all three CMS test projects are Unit; future integration tests must go in a new Cms.Integration.Tests project.

@@ -145,3 +145,13 @@ Full trace of the new-post creation flow: `OnInitializedAsync` → `LoadPageData
 - `SaveDraftCmsPostCommand` — all required parameters present, non-nullable fields are hardened against null fallbacks. ✅
 
 **Key architectural note:** River's refactor commit (c667402d) had already applied all the priority fixes before Morgana's review pass. Morgana's edits were idempotent — confirmed that the target state was achieved. All changes verified present on `squad/385-fix-cms-editor-metadata` branch.
+
+### 2025-07-25: Portfolio Architecture Plan (Issue #1)
+
+- Produced full architecture document for PortfolioSigge portfolio site, adapted from Issue #1 spec to the existing React/TypeScript/Vite stack.
+- **Key decisions:** Single `expandedId` state (not per-card booleans). All components inline in App.tsx. No React Router, no Tailwind, no fetch calls — projects are static data in `projects.ts`. CSS transitions via `.is-expanded` class toggle on `max-height` for click-to-reveal.
+- **Existing CSS preserved:** `index.css` `:root` variables, dark mode media query, `#root` layout all kept. Only two new variables added (`--card-bg`, `--card-hover`). `App.css` fully replaced (old weather table styles discarded).
+- **File structure:** `projects.ts` (data module), `App.tsx` (2 components: `ProjectCard` + `App`), `App.css` (portfolio styles), `index.html` (title update only), `main.tsx` (untouched).
+- Pedagogical C#-comparison comments specified for: interface vs C# interface, useState vs INotifyPropertyChanged, .map() vs LINQ Select, event handlers vs C# delegates.
+- 5 sample projects defined: portfolio site, .NET weather API, task tracker (SignalR), C# quiz CLI, recipe book (React).
+- Decision filed to `.squad/decisions/inbox/morgana-portfolio-architecture.md`.

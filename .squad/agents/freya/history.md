@@ -7,6 +7,14 @@
 
 ## Learnings
 
+### 2025-07-15: Portfolio pedagogical comment review (branch 1-start-portfolio-page-setup)
+- Removed comments that explain patterns identical in both C# and TS (ternaries) — they add noise, not insight.
+- Props interfaces are the highest-value comment target for C#→React learners; always annotate them.
+- React's `key` prop maps well to EF Core change-tracking identity — this analogy landed better than trying to compare it to Razor `@key`.
+- `import type` ≠ C# `using`; a more honest analogy is compile-time generic constraints (exist for checking, erased in output).
+- Moving inline comments to their own line above the code improves scanability, especially on long JSX attribute lines.
+- When reviewing someone else's pedagogical comments, the litmus test is: "Does this teach something the reader can't already see?" If not, cut it.
+
 ### 2024-06-12: PR #354 Copilot CMS doc fixes
 - Removed line numbers from 'Code location' in security-controls.md table (now only file+method/class names)
 - Narrowed dto-contracts.md overview to clarify it covers only gRPC contracts, not WebRequest models
