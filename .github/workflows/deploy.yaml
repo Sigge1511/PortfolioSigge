@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Upload files via SFTP
-        uses: AfonsoMatos/sftp-deploy@v1.2.0
+        uses: afonsomatos/sftp-deploy@v1.2.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.NAME }}
