@@ -40,7 +40,9 @@ jobs:
           else
             # Default to SFTP using rsync over SSH. Use sshpass to provide password if no key available.
             echo "Uploading via SFTP/SSH to $FTP_HOST"
-            # add known_hosts entry to avoid interactive prompt
+            # ensure ssh directory exists, then add known_hosts entry to avoid interactive prompt
+            mkdir -p ~/.ssh && chmod 700 ~/.ssh
+            touch ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
             ssh-keyscan -H "$FTP_HOST" >> ~/.ssh/known_hosts || true
             # Adjust SSH options for legacy servers (uncomment/modify if your host refuses connection due to algorithms)
             SSH_OPTS="-o StrictHostKeyChecking=yes"
