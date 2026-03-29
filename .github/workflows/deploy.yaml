@@ -1,28 +1,54 @@
-name: Deploy to Strato SFTP
+name: Deploy to Strato/Hosting
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
 
 env:
+  # keep for historical reasons if any actions rely on it
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   deploy:
-    name: SFTP Deployment
-    runs-on: windows-latest
+    name: Upload to remote host
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Upload files via SFTP
-        uses: appleboy/sftp-action@master
-        with:
-          host: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.NAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: 22
-          local_dir: './'
-          remote_dir: './'
+      - name: Install transfer tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y lftp rsync sshpass
+
+      - name: Upload (FTPS or SFTP)
+        env:
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.NAME }}
+          FTP_PASSWORD: ${{ secrets.PASSWORD }}
+          DEPLOY_PROTOCOL: ${{ secrets.DEPLOY_PROTOCOL }}
+          LOCAL_DIR: './'
+          REMOTE_DIR: '${{ secrets.REMOTE_DIR }}'
+        run: |
+          set -e
+          echo "Using protocol: ${DEPLOY_PROTOCOL:-sftp}"
+          if [ "${DEPLOY_PROTOCOL,,}" = "ftps" ]; then
+            # FTPS (FTP over TLS) using lftp
+            echo "Uploading via FTPS to $FTP_HOST"
+            lftp -c "open -u ${FTP_USER},${FTP_PASSWORD} ftps://${FTP_HOST}; set ftp:ssl-force true; set ftp:ssl-protect-data true; mirror -R --parallel=2 --verbose ${LOCAL_DIR} ${REMOTE_DIR:-/}; quit"
+          else
+            # Default to SFTP using rsync over SSH. Use sshpass to provide password if no key available.
+            echo "Uploading via SFTP/SSH to $FTP_HOST"
+            # add known_hosts entry to avoid interactive prompt
+            ssh-keyscan -H "$FTP_HOST" >> ~/.ssh/known_hosts || true
+            # Adjust SSH options for legacy servers (uncomment/modify if your host refuses connection due to algorithms)
+            SSH_OPTS="-o StrictHostKeyChecking=yes"
+            # Example to allow legacy rsa signatures on some hosts (enable only if needed):
+            # SSH_OPTS="$SSH_OPTS -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa"
+            # Use rsync over ssh to mirror files (preserves structure, faster than sftp recursive put)
+            sshpass -p "${FTP_PASSWORD}" rsync -avz -e "ssh $SSH_OPTS -p ${REMOTE_PORT:-22}" --delete ${LOCAL_DIR} ${FTP_USER}@${FTP_HOST}:${REMOTE_DIR:-/}
+          fi
+
+      - name: Confirm
+        run: echo "Deploy finished"
