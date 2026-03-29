@@ -19,6 +19,7 @@
 - **Pattern principle (new):** On a static portfolio, the meta CSP is a defence-in-depth layer, not the primary security boundary — it cannot set `frame-ancestors`. The HTTP headers layer (`.htaccess`) is mandatory for clickjacking and MIME-sniffing protection and must be treated as a go-live gate separate from the merge gate.
 - **Verdict: APPROVED FOR MERGE.**
 
+
 ### 2026-07-09: Pre-build security review — Issue #1 Portfolio Page Setup (React 19 + Vite static site)
 - **Scope:** Static portfolio SPA — React 19, TypeScript, Vite, ASP.NET Core backend (unused for this issue), Strato hosting target.
 - **Threat model:** Very low attack surface by design (no user input, no auth, no DB, no API calls). Primary risk is developer habit: accidental `dangerouslySetInnerHTML` use is the only realistic XSS vector. Secondary risks are clickjacking, MIME-sniffing, and referrer leakage — all mitigated via HTTP headers.
