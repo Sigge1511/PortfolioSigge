@@ -1,0 +1,26 @@
+name: Deploy to Strato SFTP
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: SFTP Deployment
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload files via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.NAME }}
+          password: ${{ secrets.PASSWORD }}
+          protocol: sftp
+          port: 22
+          local-dir: ./ 
+          server-dir: ./
