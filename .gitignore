@@ -6,4 +6,21 @@
 # Squad: SubSquad activation file (local to this machine)
 .squad-workstream
 
+# Editor
 .vs/
+.vscode/
+
+# Node
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
