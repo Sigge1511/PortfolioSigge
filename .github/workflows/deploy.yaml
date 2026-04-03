@@ -43,19 +43,19 @@ jobs:
           REMOTE_DIR: '${{ secrets.REMOTE_DIR }}'
         run: |
           set -e
-          echo "Using protocol: ${DEPLOY_PROTOCOL:-ftps}"
-          if [ "${DEPLOY_PROTOCOL,,}" = "sftp" ]; then
-            # SFTP using rsync over SSH. Use sshpass to provide password if no key available.
+          echo "Using protocol: ${DEPLOY_PROTOCOL:-sftp}"
+          if [ "${DEPLOY_PROTOCOL,,}" = "ftps" ]; then
+            # FTPS (FTP over TLS) using lftp
+            echo "Uploading via FTPS to $FTP_HOST"
+            lftp -c "open -u ${FTP_USER},${FTP_PASSWORD} ftps://${FTP_HOST}; set ftp:ssl-force true; set ftp:ssl-protect-data true; mirror -R --parallel=2 --verbose ${LOCAL_DIR} ${REMOTE_DIR:-/}; quit"
+          else
+            # Default to SFTP using rsync over SSH
             echo "Uploading via SFTP/SSH to $FTP_HOST"
             mkdir -p ~/.ssh && chmod 700 ~/.ssh
             touch ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
             ssh-keyscan -H "$FTP_HOST" >> ~/.ssh/known_hosts || true
             SSH_OPTS="-o StrictHostKeyChecking=yes"
             sshpass -p "${FTP_PASSWORD}" rsync -avz -e "ssh $SSH_OPTS -p ${REMOTE_PORT:-22}" --delete ${LOCAL_DIR} ${FTP_USER}@${FTP_HOST}:${REMOTE_DIR:-/}
-          else
-            # Default to FTPS (FTP over TLS) using lftp — standard for Strato
-            echo "Uploading via FTPS to $FTP_HOST"
-            lftp -c "open -u ${FTP_USER},${FTP_PASSWORD} ftps://${FTP_HOST}; set ftp:ssl-force true; set ftp:ssl-protect-data true; mirror -R --parallel=2 --verbose ${LOCAL_DIR} ${REMOTE_DIR:-/}; quit"
           fi
 
       - name: Confirm
