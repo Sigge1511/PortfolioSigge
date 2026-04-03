@@ -1,4 +1,4 @@
-# Lyra — History & Learnings
+﻿# Lyra — History & Learnings
 
 ## Core Context
 
@@ -23,6 +23,32 @@ Selection-aware components use `GetStemsForVisualization()`.
 ## Learnings
 
 <!-- Lyra appends her learnings here as she works -->
+
+### PortfolioSigge CSS Design System (2026-07-10)
+
+**Context:** React/TypeScript/Vite portfolio — pure CSS, no Tailwind. Always-dark design (no prefers-color-scheme). Sharp corners, dark emerald accent (#065f46 / #10b981), Inter from Google Fonts.
+
+**Design decisions made:**
+- Color tokens use --color-* prefix to match the new brief from Maja.
+- NO border-radius anywhere — including badges, buttons, cards, inputs, skill bars.
+- Inter via Google Fonts @import — can swap for local files when performance matters.
+- Mobile-first breakpoints: base=phone, 768px=mobile overrides, 1024px=tablet.
+- Hero uses background-attachment: fixed for parallax — degrades to scroll on mobile.
+- Hero overlay: semi-transparent dark gradient keeps text legible on any photo.
+- Project grid: CSS Grid auto-fill + minmax(300px, 1fr) — auto-responsive.
+- .section-title uses ::before pseudo-element for a left accent bar.
+- Contact inputs: 1px solid --color-border, focus border swaps to --color-accent-light.
+- Skills: custom CSS bar where fill width is set via inline style from React.
+- prefers-reduced-motion kills all transitions including skill bars.
+
+**Files written:**
+- src/index.css — tokens, resets, base typography, Google Fonts import
+- src/App.css — nav, hero, cards, grid, footer, responsive
+- src/styles/pages/home.css — home hero with parallax and overlay
+- src/styles/pages/projects.css — project grid, filter tabs, card images
+- src/styles/pages/about.css — two-column about layout, timeline
+- src/styles/pages/contact.css — contact form, input styles, sidebar
+- src/styles/pages/skills.css — skill bars, tag cloud, CV entries
 
 ### CMS Post Editor UX Walk-through (squad/385)
 

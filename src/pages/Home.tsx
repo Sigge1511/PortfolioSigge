@@ -1,98 +1,59 @@
-import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { projects } from "../projects";
-import "../styles/home.css";
+﻿import { Link } from 'react-router-dom';
+import HeroBanner from '../components/HeroBanner';
+import '../styles/pages/home.css';
 
 function Home() {
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!imgRef.current) return;
-      const scrollY = window.scrollY;
-      imgRef.current.style.transform = `translateY(${scrollY * 0.3}px)`;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const previewProjects = projects.slice(0, 3);
-
   return (
-    <main>
-      <section className="hero-banner" aria-label="Hero">
-        <img
-          ref={imgRef}
-          src="/src/assets/hero.png"
-          alt=""
-          aria-hidden="true"
-          className="hero-banner-img"
-        />
-        <div className="hero-banner-overlay" />
-        <div className="hero-content">
-          <p className="hero-eyebrow">Developer &amp; Student</p>
-          <h1 className="hero-title">
-            Hi, I&apos;m <span>Sigge</span>
-          </h1>
-          <p className="hero-subtitle">
-            Building things with .NET, React, and TypeScript
-          </p>
-          <Link to="/projects" className="hero-cta">
-            View My Projects
-          </Link>
-        </div>
-      </section>
-
-      <section className="home-intro" aria-labelledby="intro-heading">
-        <div className="home-intro-grid">
-          <div className="home-intro-text">
-            <h2 id="intro-heading">Developer. Student. Builder.</h2>
-            <p>
-              I&apos;m a Swedish developer studying software engineering, working
-              across the full stack with C#, .NET, React, and TypeScript.
-              I love clean code, structured systems, and learning by doing.
+    <div className="home">
+      <HeroBanner
+        label="Developer &amp; Creator"
+        title="Sigge"
+        subtitle="Building clean, thoughtful software with .NET, React, and TypeScript."
+        primaryCta={{ label: 'View Projects', to: '/projects' }}
+        secondaryCta={{ label: 'About Me', to: '/about' }}
+      />
+      <section className="home__intro" aria-label="Introduction">
+        <div className="home__intro-inner">
+          <div>
+            <p className="home__intro-label">Who I am</p>
+            <p className="home__intro-text">
+              I am a <strong>developer and student</strong> based in Sweden,
+              focused on building clean, well-structured applications.
             </p>
           </div>
-          <div className="home-intro-stats">
-            <div className="stat-card">
-              <span className="stat-number">5+</span>
-              <span className="stat-label">Projects</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">2+</span>
-              <span className="stat-label">Years coding</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">4</span>
-              <span className="stat-label">Tech stacks</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">&infin;</span>
-              <span className="stat-label">Curiosity</span>
-            </div>
+          <div>
+            <p className="home__intro-label">What I do</p>
+            <p className="home__intro-text">
+              Full-stack development with a focus on <strong>.NET</strong> and{' '}
+              <strong>React</strong>. I care about code quality and accessibility.
+            </p>
           </div>
         </div>
       </section>
-
-      <section className="home-preview" aria-labelledby="preview-heading">
-        <p className="section-label">Selected work</p>
-        <h2 id="preview-heading" className="section-heading">Recent Projects</h2>
-
-        <div className="home-project-preview">
-          {previewProjects.map((project) => (
-            <div key={project.id} className="preview-card">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-            </div>
-          ))}
+      <section className="home__stats" aria-label="At a glance">
+        <div className="home__stats-inner">
+          <div className="home__stat"><p className="home__stat-number">5+</p><p className="home__stat-label">Projects</p></div>
+          <div className="home__stat"><p className="home__stat-number">3</p><p className="home__stat-label">Languages</p></div>
+          <div className="home__stat"><p className="home__stat-number">2+</p><p className="home__stat-label">Years coding</p></div>
+          <div className="home__stat"><p className="home__stat-number">infinity</p><p className="home__stat-label">Coffee consumed</p></div>
         </div>
-
-        <Link to="/projects" className="view-all-link">
-          View All Projects &rarr;
-        </Link>
       </section>
-    </main>
+      <section className="home__ctas-section" aria-label="Explore">
+        <nav aria-label="Page shortcuts">
+          {[
+            { label: 'Projects', to: '/projects' },
+            { label: 'Skills',   to: '/skills' },
+            { label: 'About Me', to: '/about' },
+            { label: 'Contact',  to: '/contact' },
+          ].map(({ label, to }) => (
+            <Link key={to} to={to} className="home__cta-item">
+              <span className="home__cta-title">{label}</span>
+              <span className="home__cta-arrow" aria-hidden="true">&#8594;</span>
+            </Link>
+          ))}
+        </nav>
+      </section>
+    </div>
   );
 }
 

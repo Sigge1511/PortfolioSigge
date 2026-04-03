@@ -1,50 +1,49 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import "../styles/navbar.css";
+﻿import { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import '../styles/navbar.css';
+
+const navItems = [
+  { label: 'Home',     to: '/' },
+  { label: 'About',    to: '/about' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Skills',   to: '/skills' },
+  { label: 'Contact',  to: '/contact' },
+];
 
 function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const closeMenu = () => setIsMenuOpen(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <>
-      <nav className="navbar" aria-label="Main navigation">
-        <NavLink to="/" className="navbar-logo" onClick={closeMenu}>
-          Sigge<span>.</span>
-        </NavLink>
-
-        <ul className="navbar-links" role="list">
-          <li><NavLink to="/" end>Home</NavLink></li>
-          <li><NavLink to="/about">About</NavLink></li>
-          <li><NavLink to="/projects">Projects</NavLink></li>
-          <li><NavLink to="/skills">Skills</NavLink></li>
-          <li><NavLink to="/contact">Contact</NavLink></li>
-        </ul>
-
+    <header className={'navbar' + (isOpen ? ' is-open' : '')} role="banner">
+      <div className="navbar__inner">
+        <Link to="/" className="navbar__logo" onClick={closeMenu}>
+          Sigge
+        </Link>
         <button
-          className="navbar-hamburger"
-          aria-label="Toggle mobile menu"
-          aria-expanded={isMenuOpen}
-          onClick={toggleMenu}
+          className="navbar__toggle"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+          aria-controls="navbar-menu"
+          onClick={() => setIsOpen((prev) => !prev)}
         >
-          <span className="hamburger-line" />
-          <span className="hamburger-line" />
-          <span className="hamburger-line" />
+          <span />
+          <span />
+          <span />
         </button>
-      </nav>
-
-      {isMenuOpen && (
-        <div className="navbar-mobile-menu" role="navigation" aria-label="Mobile navigation">
-          <NavLink to="/" end onClick={closeMenu}>Home</NavLink>
-          <NavLink to="/about" onClick={closeMenu}>About</NavLink>
-          <NavLink to="/projects" onClick={closeMenu}>Projects</NavLink>
-          <NavLink to="/skills" onClick={closeMenu}>Skills</NavLink>
-          <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
-        </div>
-      )}
-    </>
+        <nav id="navbar-menu" className="navbar__menu" aria-label="Main navigation">
+          <ul className="navbar__links">
+            {navItems.map(({ label, to }) => (
+              <li key={to}>
+                <NavLink to={to} end={to === '/'} onClick={closeMenu}>
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
   );
 }
 

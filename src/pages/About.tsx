@@ -1,78 +1,60 @@
-import "../styles/about.css";
+﻿import '../styles/pages/about.css';
+
+const interests = ['Music', 'Design', 'Typography', 'Open Source', 'Video Games', 'Photography', 'Architecture', 'Coffee'];
 
 function About() {
   return (
-    <main className="about-page">
-      <div className="page-banner">
-        <div className="page-banner-inner">
-          <p className="page-banner-label">Get to know me</p>
-          <h1 className="page-banner-title">About Me</h1>
+    <div className="about">
+      <header className="about__header">
+        <div className="about__header-inner">
+          <p className="about__page-label">Get to know me</p>
+          <h1 className="about__headline">About Me</h1>
+        </div>
+      </header>
+      <div className="about__content">
+        <section className="about__profile" aria-label="Profile">
+          <div className="about__photo-container">
+            <div className="about__photo-placeholder" role="img" aria-label="Profile photo">
+              <span>Photo</span>
+              <span>coming soon</span>
+            </div>
+          </div>
+          <div className="about__bio">
+            <div className="about__bio-text">
+              <p>Hi - I am Sigge. A developer and student based in Sweden, working through the full stack with .NET, C#, React, and TypeScript.</p>
+              <p>I started programming as a way to build things - and I still think that is the best reason.</p>
+              <p>This portfolio is both a project showcase and a living record of what I am learning.</p>
+            </div>
+          </div>
+        </section>
+        <div className="about__sections">
+          <section aria-label="Background">
+            <p className="about__section-label">Background</p>
+            <h2 className="about__section-title">Where I am coming from</h2>
+            <div className="about__section-body">
+              <p>I grew up in Sweden and picked up programming through curiosity. My first language was C#.</p>
+            </div>
+          </section>
+          <section aria-label="How I work">
+            <p className="about__section-label">Approach</p>
+            <h2 className="about__section-title">How I work</h2>
+            <div className="about__section-body">
+              <p>I prefer clear over clever. Meaningful names, small functions, comments only where needed.</p>
+            </div>
+          </section>
+          <section aria-label="Interests">
+            <p className="about__section-label">Outside code</p>
+            <h2 className="about__section-title">Interests</h2>
+            <div className="about__section-body">
+              <p>Music, design, and anything with good typography.</p>
+            </div>
+            <div className="about__interests" role="list">
+              {interests.map((i) => <span key={i} className="about__interest-tag" role="listitem">{i}</span>)}
+            </div>
+          </section>
         </div>
       </div>
-
-      <div className="about-content">
-        <div className="about-grid">
-          <article className="about-bio">
-            <h2>Developer &amp; student based in Sweden</h2>
-
-            <p>
-              I&apos;m Sigge, a software engineering student building things across the full stack.
-              My journey started with C# and .NET &mdash; backend APIs, database design, and learning
-              how well-structured systems work under the hood. Over time I discovered that I enjoy
-              the frontend just as much, especially when the two halves connect cleanly.
-            </p>
-
-            <p>
-              Today I work with React and TypeScript on the frontend and ASP.NET Core on the
-              backend. I care about writing code that&apos;s readable and maintainable &mdash; code that
-              someone else (or future-me) can understand without a manual.
-            </p>
-
-            <p>
-              When I&apos;m not coding I&apos;m reading about software architecture, tinkering with side
-              projects, or figuring out how to make the next one better than the last.
-            </p>
-
-            <h2>Why this portfolio?</h2>
-            <p>
-              This site is itself a project. Built from scratch with React, TypeScript, and Vite &mdash;
-              no component libraries, no shortcuts. Every line of CSS was written by hand.
-            </p>
-          </article>
-
-          <aside className="about-sidebar">
-            <div className="about-sidebar-card">
-              <h3>Currently studying</h3>
-              <p>Software Engineering &mdash; full-stack focus</p>
-            </div>
-
-            <div className="about-sidebar-card">
-              <h3>Currently building</h3>
-              <ul>
-                <li>This portfolio</li>
-                <li>Weather Dashboard API (.NET)</li>
-                <li>Task Tracker (React + SignalR)</li>
-              </ul>
-            </div>
-
-            <div className="about-sidebar-card">
-              <h3>Interested in</h3>
-              <ul>
-                <li>Clean architecture</li>
-                <li>Developer tooling</li>
-                <li>Frontend performance</li>
-                <li>Azure &amp; cloud deployment</li>
-              </ul>
-            </div>
-
-            <div className="about-sidebar-card">
-              <h3>Based in</h3>
-              <p>Sweden</p>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </main>
+    </div>
   );
 }
 
