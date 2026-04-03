@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { Project } from "../projects";
 import { projects } from "../projects";
 import "../styles/projects.css";
-import "../styles/about.css";
 
 interface ProjectCardProps {
   project: Project;

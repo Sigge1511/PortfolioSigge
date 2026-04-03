@@ -1,5 +1,4 @@
 import "../styles/skills.css";
-import "../styles/about.css";
 
 interface SkillCategory {
   label: string;
