@@ -1,24 +1,26 @@
-import "../styles/footer.css";
+﻿import { Link } from 'react-router-dom';
+import '../styles/footer.css';
 
 function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer">
-      <div className="footer-inner">
-        <p className="footer-copy">
-          &copy; {year} Sigge &mdash; Built with React &amp; TypeScript
-        </p>
-        <nav className="footer-links" aria-label="Footer links">
-          <a
-            href="https://github.com/Sigge1511/PortfolioSigge"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a href="/contact">Contact</a>
-        </nav>
+    <footer className="footer" aria-label="Site footer">
+      <div className="footer__inner">
+        <div className="footer__left">
+          <span className="footer__brand">Sigge</span>
+          <p className="footer__tagline">Developer &amp; Creator</p>
+        </div>
+        <div className="footer__right">
+          <nav className="footer__links" aria-label="Footer navigation">
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/projects">Projects</Link>
+            <Link to="/skills">Skills</Link>
+            <Link to="/contact">Contact</Link>
+          </nav>
+          <p className="footer__copy">&#169; {year} Sigge &#8212; Built with React + TypeScript</p>
+        </div>
       </div>
     </footer>
   );
