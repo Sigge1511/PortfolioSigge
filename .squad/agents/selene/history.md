@@ -86,3 +86,13 @@
 - `SaveDraftInternalAsync`: builds `Subject` from `_formData.SubjectTags` joined by `;`; falls back to `_loadedPost.Subject` when list is empty (CmsPostSubject rejects empty strings). Passes `CmsPostInternalHeadline.Create(_formData.InternalTitle)` as the new `InternalHeadline` command param.
 - `CreatePostAndSaveDraftAsync`: same tag-join pattern; defaults to `"untagged"` sentinel when no tags (brand-new post, no loaded state to fall back to). Passes `CmsPostInternalHeadline.Create(_formData.InternalTitle)` as last param in `CreateCmsPostCommand`. `_loadedPost = new CmsPost(...)` updated to pass `command.InternalHeadline` (14th param, now required).
 - `TryAutoSaveAsync` autosave gate unchanged — `string.IsNullOrWhiteSpace(_formData.InternalTitle)` is still correct since InternalTitle maps to InternalHeadline.
+- 2026-04-03: Built complete multi-page portfolio site with React Router v7. Created Navbar and Footer shared components. Created Home, About, Projects, Skills, Contact pages. Added CSS design system in src/styles/ with dark theme. Implemented responsive layout with mobile hamburger menu.
+
+### 2025-07-15: Pure React migration — removed ASP.NET coupling
+
+- Moved React/Vite project from `portfoliosigge.client/` to repo root.
+- Stripped ASP.NET-specific vite.config.ts (dotnet dev-certs, ASPNETCORE env vars, weatherforecast proxy, HTTPS setup).
+- New vite.config.ts is minimal: `@vitejs/plugin-react`, `@` alias pointing to `./src`. No server proxy, no HTTPS cert logic.
+- `package.json` renamed from `portfoliosigge.client` to `portfoliosigge`.
+- `portfoliosigge.client/` directory deleted entirely after migration.
+- `npm install` and `npm run build` both passed at repo root.

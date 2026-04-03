@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="portfoliosigge.client/portfoliosigge.client.esproj">
-    <Build />
-    <Deploy />
-  </Project>
-  <Project Path="PortfolioSigge.Server/PortfolioSigge.Server.csproj" />
-</Solution>

@@ -1,0 +1,208 @@
+﻿/* ══════════════════════════════════════════════════════════════
+   Google Fonts — Inter
+   Like a NuGet package reference: we pull in a font library
+   from a CDN so we don't need to bundle the font files locally.
+   ══════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ══════════════════════════════════════════════════════════════
+   :root — Design Token Registry
+   Think of these like public static readonly constants in C#:
+     public static readonly string ColorBg = "#0a0a0a";
+   Every colour, size, or timing is defined ONCE here, then
+   referenced everywhere else as var(--token-name).
+   Change a value here and it propagates to every element.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* ── Colour palette ─────────────────────────────────────────
+     Monochrome dark base + dark emerald accent.
+     Each variable is like a named colour constant.            */
+  --color-bg:           #0a0a0a;   /* deepest background — near-black         */
+  --color-surface:      #111111;   /* card and panel surface                  */
+  --color-surface-2:    #1a1a1a;   /* raised surface, hover state background  */
+  --color-border:       #222222;   /* borders and dividers                    */
+  --color-text:         #f5f5f5;   /* primary text — near-white               */
+  --color-text-muted:   #888888;   /* secondary / placeholder text            */
+  --color-accent:       #065f46;   /* dark emerald — CTAs, active states      */
+  --color-accent-light: #10b981;   /* light emerald — hover glow, links       */
+
+  /* ── Typography ─────────────────────────────────────────────
+     --font-main is set once; body inherits it so all elements
+     get Inter automatically — like a default style in WPF
+     Application.Resources flowing down to all child elements. */
+  --font-main: 'Inter', sans-serif;
+  --font-mono: ui-monospace, Consolas, 'Courier New', monospace;
+
+  /* ── Spacing scale ───────────────────────────────────────────
+     A near-doubling progression: 4 → 8 → 16 → 24 → 48 → 64px.
+     Always use these instead of hardcoded pixel values.        */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  48px;
+  --space-2xl: 64px;
+
+  /* ── Layout ──────────────────────────────────────────────────
+     --nav-height is used to offset content below the sticky nav,
+     like a fixed-height toolbar row in a XAML Grid layout.     */
+  --nav-height:      64px;
+  --content-max-w:   1200px;
+  --section-padding: var(--space-xl) var(--space-lg);
+
+  /* ── Cards ───────────────────────────────────────────────────
+     NO border-radius — sharp corners are a deliberate choice.  */
+  --card-bg:      var(--color-surface);
+  --card-border:  var(--color-border);
+  --card-padding: var(--space-lg);
+
+  /* ── Accent utilities ────────────────────────────────────────*/
+  --accent-bg:     rgba(6, 95, 70, 0.15);    /* semi-transparent emerald fill  */
+  --accent-border: rgba(16, 185, 129, 0.4);  /* emerald border / focus glow    */
+
+  /* ── Transitions ─────────────────────────────────────────────
+     Named durations so animation speed is changed in one place.
+     Like an enum for motion speed.                             */
+  --transition-fast:   0.18s ease;
+  --transition-normal: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-expand: 0.4s  cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Focus ring ──────────────────────────────────────────────
+     box-shadow focus ring works on sharp elements without
+     needing border-radius on the outline.                       */
+  --focus-ring: 0 0 0 3px var(--accent-border);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Universal box-sizing reset
+   Every element calculates width/height INCLUDING its padding
+   and border — the sensible default CSS didn't ship with.
+   ══════════════════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Body — root of the visual tree
+   font-family here flows down to all children automatically,
+   like a default style in WPF Application.Resources.
+   ══════════════════════════════════════════════════════════════ */
+body {
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   #root — the React mount point
+   React renders into <div id="root"> in index.html.
+   flex-direction: column pushes the footer to the bottom, like
+   DockPanel with LastChildFill="true" in XAML.
+   ══════════════════════════════════════════════════════════════ */
+#root {
+  /* 100svh = 100% of the Small Viewport Height — respects
+     mobile browser chrome (address bar, tab bar).             */
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Base typography
+   clamp(min, preferred, max) is like Math.Clamp() in C# —
+   font size scales fluidly between min and max.
+   ══════════════════════════════════════════════════════════════ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-main);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2rem,   5vw, 3.5rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem);   }
+h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+
+p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--color-accent-light);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-text);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Code blocks
+   ══════════════════════════════════════════════════════════════ */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  padding: 2px 6px;
+  background: var(--color-surface-2);
+  color: var(--color-accent-light);
+  /* No border-radius — sharp corners by design */
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Global focus styles — accessibility
+   ══════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Reduced motion — accessibility
+   Users who enable "reduce motion" in their OS get instant
+   transitions. Like checking SystemParameters.ClientAreaAnimation
+   in WPF before starting animations.
+   ══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Responsive token overrides
+   Mobile-first: base targets phones, then we expand for bigger
+   screens. Think of breakpoints like C# if/else branches:
+     if (viewport <= 1024) { use tablet spacing }
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  :root {
+    --section-padding: var(--space-lg) var(--space-md);
+    --space-2xl: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --card-padding: var(--space-md);
+    --nav-height: 56px;
+  }
+
+  body {
+    font-size: 15px;
+  }
+}

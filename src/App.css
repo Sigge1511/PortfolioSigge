@@ -1,0 +1,390 @@
+﻿/* ══════════════════════════════════════════════════════════════
+   App.css — Layout Shells
+   This file styles the main structural components of the app:
+   Nav, Hero, Sections, Project Grid, Footer.
+   Think of each block here like a layout panel in XAML —
+   it defines size, position, and arrangement of its children,
+   but not the visual details (colours come from :root tokens).
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Portfolio wrapper ───────────────────────────────────────
+   The outermost <div className="portfolio"> in App.tsx.
+   flex + column so the footer stays at the bottom (grows
+   the portfolio to fill all available vertical space).      */
+.portfolio {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* takes up remaining height inside #root */
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NAV — Sticky top navigation
+   position: sticky keeps it at the top as the user scrolls,
+   like a fixed ToolBar row in XAML but that still scrolls
+   with the page until it hits the top of the viewport.
+   z-index: 100 puts it above all content layers.
+   ══════════════════════════════════════════════════════════════ */
+.nav {
+  display: flex;                       /* flex row — items line up horizontally */
+  justify-content: space-between;      /* logo on left, links on right */
+  align-items: center;                 /* vertical centre */
+  height: var(--nav-height);
+  padding: 0 var(--space-lg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  /* No blur/frosted glass — clean, opaque dark bar */
+}
+
+.nav-logo {
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-accent-light);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+/* Nav link base state */
+.nav-links a {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: color var(--transition-fast);
+  /* padding-bottom creates space for the active underline */
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+
+/* Hover + active: emerald underline */
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-accent-light);
+  border-bottom-color: var(--color-accent-light);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HERO — Full-width banner section
+   ══════════════════════════════════════════════════════════════ */
+.hero {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(10, 10, 10, 0.55) 0%,
+      rgba(10, 10, 10, 0.75) 100%
+    ),
+    url('/images/hero.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 80vh;
+  padding: var(--space-2xl) var(--space-lg);
+  text-align: center;
+
+  background-color: var(--color-surface);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-accent);
+}
+
+.hero {
+  position: relative;
+}
+
+.hero h1 {
+  color: var(--color-text);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+  max-width: 800px;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(245, 245, 245, 0.8);
+  max-width: 560px;
+  margin-top: var(--space-md);
+  line-height: 1.6;
+}
+
+/* ── Accent span — emerald highlight on name/keyword ─────── */
+.accent {
+  color: var(--color-accent-light);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CTA — Call-to-action button/link
+   No border-radius — sharp corners.
+   ══════════════════════════════════════════════════════════════ */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding: 14px 32px;
+  background: var(--color-accent);
+  color: var(--color-text);
+  border: 2px solid var(--color-accent);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.cta:hover {
+  background: transparent;
+  color: var(--color-accent-light);
+  border-color: var(--color-accent-light);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECTIONS
+   ══════════════════════════════════════════════════════════════ */
+.projects-section,
+.about-section {
+  padding: var(--section-padding);
+  max-width: var(--content-max-w);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.about-section {
+  max-width: 720px;
+}
+
+/* ── Section title with emerald left bar decorator ────────── */
+.section-title {
+  position: relative;
+  display: inline-block;
+  padding-left: var(--space-md);
+  margin-bottom: var(--space-lg);
+  color: var(--color-text);
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-accent-light);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PROJECT GRID
+   ══════════════════════════════════════════════════════════════ */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PROJECT CARD
+   ══════════════════════════════════════════════════════════════ */
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: var(--card-padding);
+  text-align: left;
+  transition:
+    transform var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+}
+
+.project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-sm);
+}
+
+.project-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.project-card-description {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: var(--space-sm) 0 var(--space-md);
+}
+
+.project-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+/* ── Badge — tech chip, NO border-radius ─────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--accent-bg);
+  color: var(--color-accent-light);
+  border: 1px solid var(--accent-border);
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CARD TOGGLE BUTTON
+   ══════════════════════════════════════════════════════════════ */
+.card-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--color-accent-light);
+  border: 1px solid var(--color-accent);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.card-toggle:hover {
+  background: var(--accent-bg);
+  border-color: var(--color-accent-light);
+}
+
+.card-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.chevron {
+  display: inline-block;
+  transition: transform var(--transition-normal);
+  font-style: normal;
+}
+
+.project-card.is-expanded .chevron {
+  transform: rotate(180deg);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CARD DETAILS — Expandable content
+   ══════════════════════════════════════════════════════════════ */
+.card-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height var(--transition-expand),
+    opacity var(--transition-expand);
+}
+
+.project-card.is-expanded .card-details {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: var(--space-md);
+}
+
+.card-details p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  font-size: 0.9rem;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════════ */
+.footer {
+  margin-top: auto;
+  padding: var(--space-lg) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.footer a {
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer a:hover {
+  color: var(--color-accent-light);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav {
+    padding: 0 var(--space-md);
+  }
+
+  .nav-links {
+    gap: var(--space-md);
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    background-attachment: scroll;
+    min-height: 60vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .project-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}

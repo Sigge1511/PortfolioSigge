@@ -42,3 +42,17 @@ Selection-aware components use `GetStemsForVisualization()`.
 - `BreadcrumbItems` was empty — always check navigation context is populated in both `OnInitializedAsync` and `OnParametersSetAsync`.
 - `FO_Badge.BadgeVariant` enum is a nested type; reference as `FO_Badge.BadgeVariant.Success` from inline razor `@{}` blocks.
 - Short body RTE gated on `_longBodyHasContent` — always pair a disabled input with an explanation of WHY it's disabled.
+
+### PortfolioSigge Design Spec (2025-01-28)
+
+**Context:** React/TypeScript/Vite portfolio site, pure CSS (no Tailwind). Dark mode via `prefers-color-scheme`.
+
+**Design decisions made:**
+- 6-step spacing scale (4/8/16/24/48/64px) — near-doubling progression feels natural for a portfolio.
+- Card expand/collapse uses `max-height` + `opacity` transition (0.4s, cubic-bezier ease-out). Avoids `display:none` which kills transitions. 500px ceiling for max-height is generous enough for any card content.
+- `auto-fill` + `minmax(320px, 1fr)` grid handles responsive columns without explicit breakpoints. Only override to `1fr` below 640px as a safety net.
+- Sticky nav with `backdrop-filter: blur(12px)` and semi-transparent bg for frosted glass effect.
+- Badge pills use monospace font (`var(--mono)`) to visually distinguish tech terms from prose.
+- Focus ring uses `box-shadow` (not `outline`) so it respects `border-radius` on rounded elements.
+- `prefers-reduced-motion` kills all transitions — essential for accessibility.
+- Existing `--accent` purple (#aa3bff light / #c084fc dark) passes contrast checks on all proposed card/badge backgrounds.

@@ -1,0 +1,101 @@
+.skills-page {
+  padding-top: var(--nav-height);
+}
+
+.skills-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+@media (min-width: 768px) {
+  .skills-content {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+}
+
+@media (min-width: 600px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.skill-category {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: var(--spacing-sm);
+}
+
+.skill-category-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--border);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.skill-tag:hover {
+  border-color: var(--accent-light);
+  color: var(--accent-light);
+}
+
+.skill-tag.highlight {
+  border-color: var(--accent);
+  color: var(--accent-light);
+  background: rgba(6, 95, 70, 0.15);
+}
+
+.skills-learning {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-light);
+}
+
+.skills-learning h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: var(--spacing-xs);
+}
+
+.skills-learning p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}

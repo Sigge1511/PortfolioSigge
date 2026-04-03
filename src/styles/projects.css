@@ -1,0 +1,131 @@
+.projects-page {
+  padding-top: var(--nav-height);
+}
+
+.projects-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+@media (min-width: 768px) {
+  .projects-content {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xs);
+}
+
+@media (min-width: 600px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: var(--spacing-sm);
+  transition: border-color var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  border-color: var(--accent-light);
+}
+
+.project-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-card-description {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: var(--spacing-sm);
+  flex: 1;
+}
+
+.project-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.tech-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 3px 8px;
+}
+
+.card-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  width: 100%;
+  transition: color var(--transition);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.card-toggle-btn:hover {
+  color: var(--accent-light);
+}
+
+.chevron {
+  display: inline-block;
+  transition: transform 300ms ease;
+  font-size: 10px;
+}
+
+.project-card.is-expanded .chevron {
+  transform: rotate(180deg);
+}
+
+.card-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 400ms ease, opacity 400ms ease;
+}
+
+.project-card.is-expanded .card-details {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: var(--spacing-xs);
+}
+
+.card-details p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  padding-top: var(--spacing-xs);
+}

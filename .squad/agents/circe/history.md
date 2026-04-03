@@ -7,6 +7,10 @@
 
 ## Learnings
 
+### 2026-03-18: Portfolio Page Brief
+- Defined scope, React adaptations, and clear acceptance criteria for portfolio setup.
+- Outlined exclusions and static deployment requirements for Strato.
+
 - Initial team seeded for planning and delivery management.
 
 ### 2026-03-17: CMS backend completion coordination

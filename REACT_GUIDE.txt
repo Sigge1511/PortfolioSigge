@@ -1,0 +1,385 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║          YOUR PORTFOLIO SITE — A PRACTICAL GUIDE FOR SIGGE                  ║
+║          Written by Freya · DevRel / Technical Writer                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Hey Sigge! You've built a really solid portfolio site. This guide is here so
+you can confidently tweak, update, and extend it without having to reverse-
+engineer everything from scratch every time. Since you live in C# / .NET land,
+I've sprinkled in analogies throughout — React isn't as alien as it looks.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. HOW THE SITE IS STRUCTURED — FILE MAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Here's where everything lives and what it does. Think of it like a solution
+with a few well-named projects inside.
+
+  src/
+  ├── main.tsx              Entry point. Like Program.cs — bootstraps React
+  │                         and mounts the app into index.html's <div id="root">.
+  │
+  ├── App.tsx               Root component. Like Startup.cs / Program.cs in
+  │                         ASP.NET Core — sets up routing and the shared shell
+  │                         (Navbar + Footer that appear on every page).
+  │
+  ├── projects.ts           Your data layer. A typed array of project objects.
+  │                         Think of it as a static in-memory repository —
+  │                         no database, just a plain TypeScript file.
+  │
+  ├── index.css             Global design tokens (colours, fonts, spacing).
+  │                         The single source of truth for how the site looks.
+  │
+  ├── pages/
+  │   ├── Home.tsx          The "/" route. Your landing page / hero.
+  │   ├── About.tsx         The "/about" route. Your bio and sidebar cards.
+  │   ├── Projects.tsx      The "/projects" route. Renders cards from projects.ts.
+  │   ├── Skills.tsx        The "/skills" route. Tech stack, grouped by category.
+  │   └── Contact.tsx       The "/contact" route. Contact form + social links.
+  │
+  └── components/
+      ├── Navbar.tsx        Shared navigation bar. Rendered once in App.tsx,
+      │                     visible on every page — like a _Layout.cshtml partial.
+      └── Footer.tsx        Shared footer. Same idea as Navbar.
+
+  public/                   Static files served as-is (favicon, images you want
+                            accessible by direct URL).
+
+The C# analogy that maps cleanest:
+  - pages/    = Controllers  (each one owns a route and its view)
+  - components/ = Shared partials / _Layout views
+  - projects.ts = A static repository / seed data class
+  - index.css :root = A static class full of readonly constants
+  - App.tsx   = Program.cs + the route table
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. HOW ROUTING WORKS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+In ASP.NET Core you'd write something like:
+
+  app.UseRouting();
+  app.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+
+React Router does the same job but entirely in the browser — no server round-
+trip, no page reload. The URL changes and React swaps out the component.
+
+Your route table lives in App.tsx (lines 16–22):
+
+  <Routes>
+    <Route path="/"         element={<Home />} />
+    <Route path="/about"    element={<About />} />
+    <Route path="/projects" element={<Projects />} />
+    <Route path="/skills"   element={<Skills />} />
+    <Route path="/contact"  element={<Contact />} />
+  </Routes>
+
+Each <Route> maps a URL path to a component, exactly like MapControllerRoute
+maps a URL pattern to a controller action. The element prop is the component
+that gets rendered — think of it as the View returned by an action method.
+
+The <Navbar /> and <Footer /> sit OUTSIDE the <Routes> block, so they render
+on every page regardless of which route is active. That's your shared layout.
+
+The whole thing is wrapped in <BrowserRouter> in main.tsx — that's the
+equivalent of calling app.UseRouting() to enable routing for the whole app.
+
+If you ever want to add a new page:
+  1. Create src/pages/NewPage.tsx
+  2. Add <Route path="/new-page" element={<NewPage />} /> in App.tsx
+  3. Add a <NavLink to="/new-page"> in Navbar.tsx
+Done.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. WHERE TO CHANGE YOUR PERSONAL INFO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+──────────────────────────────────────────────────────────
+3a. Name / Hero text — src/pages/Home.tsx
+──────────────────────────────────────────────────────────
+
+The hero section (the big banner at the top of the home page) is around
+lines 33–45. Here's what maps to what:
+
+  Line 34:  <p className="hero-eyebrow">Developer &amp; Student</p>
+            → The small label above your name. Change this to whatever
+              describes you best, e.g. "Backend Developer & Student"
+
+  Line 36:  Hi, I&apos;m <span>Sigge</span>
+            → Your name in the big heading. Just change "Sigge".
+
+  Line 38–40: <p className="hero-subtitle">
+                Building things with .NET, React, and TypeScript
+              </p>
+            → The tagline beneath your name.
+
+A bit lower (lines 50–54) there's an intro section with a short paragraph
+about you. Update the text inside the <p> tags to match where you're at.
+
+The stat cards (lines 57–73) show numbers like "5+ Projects", "2+ Years".
+Edit the <span className="stat-number"> and <span className="stat-label">
+values to reflect your actual numbers.
+
+──────────────────────────────────────────────────────────
+3b. About Me bio — src/pages/About.tsx
+──────────────────────────────────────────────────────────
+
+All the bio copy is in the <article className="about-bio"> block (lines 15–41).
+There are three paragraphs — just rewrite them in your own words.
+
+The right-hand sidebar cards (lines 43–72) cover:
+  - "Currently studying"  — update the <p> text (line 47)
+  - "Currently building"  — the <ul> list items (lines 51–55)
+  - "Interested in"       — the <ul> list items (lines 60–64)
+  - "Based in"            — the <p> text (line 69)
+
+These are plain HTML inside TSX — just type over the existing text.
+(Note: &apos; is just an apostrophe ' and &mdash; is an em-dash —, they're
+HTML entities to avoid issues inside JSX strings.)
+
+──────────────────────────────────────────────────────────
+3c. Contact links / email — src/pages/Contact.tsx
+──────────────────────────────────────────────────────────
+
+Your social links are in the <nav className="social-links"> block (lines 107–133).
+
+  GitHub  → line 109: href="https://github.com/Sigge1511"
+            and line 115: the visible label text "GitHub — Sigge1511"
+
+  LinkedIn → line 119: href="https://linkedin.com/in/sigge"
+             Update the URL to your real LinkedIn profile path.
+
+  Email   → line 128: href="mailto:sigge@example.com"
+            line 131: the visible label text "sigge@example.com"
+            Update both to your real email address.
+
+The form itself (lines 48–96) currently logs submissions to the browser
+console. When you're ready to wire it up to a real backend or a service like
+Formspree, that's the handleSubmit function (lines 23–27) you'd update.
+
+──────────────────────────────────────────────────────────
+3d. Skills list — src/pages/Skills.tsx
+──────────────────────────────────────────────────────────
+
+Your skills are defined in the skillCategories array (lines 9–29). It's a
+plain TypeScript array — think of it as a List<SkillCategory> in C#.
+
+Each entry looks like this:
+
+  {
+    label: "Languages",
+    skills: ["C#", "TypeScript", "JavaScript", "HTML", "CSS", "SQL"],
+    highlight: ["C#", "TypeScript"],   // these get a special "highlighted" style
+  }
+
+To add a skill: just add a string to the skills array.
+To highlight it (makes it stand out visually): add it to the highlight array too.
+To add a whole new category: copy one of the existing objects and paste it in.
+
+The "Currently Learning" category (lines 24–28) is the last item in the array
+and has no highlight property — that's intentional, it renders differently.
+
+The "Always learning" prose section at the bottom (lines 63–69) is plain text
+inside the JSX — just edit it directly.
+
+──────────────────────────────────────────────────────────
+3e. Education section
+──────────────────────────────────────────────────────────
+
+There isn't a dedicated Education section yet — the closest thing is the
+"Currently studying" sidebar card in About.tsx (line 47). If you want a proper
+Education section, About.tsx is the natural home for it: add a new <div> or
+<article> block in the about-content area alongside the existing bio.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. HOW TO ADD A PROJECT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Open src/projects.ts. At the top you'll see the Project interface:
+
+  export interface Project {
+    id: string;
+    title: string;
+    description: string;
+    techStack: string[];
+    details: string;
+  }
+
+In C# terms this is a record / DTO:
+
+  public record Project(
+    string Id,
+    string Title,
+    string Description,
+    string[] TechStack,
+    string Details
+  );
+
+To add a new project, add a new object to the projects array. Copy an existing
+entry and fill in your values:
+
+  {
+    id: "my-new-project",          // URL-safe slug, no spaces. Used as a key
+                                   // internally — keep it unique and lowercase.
+    title: "My New Project",       // Display name shown on the card heading.
+    description: "One or two sentences explaining what this project is.",
+                                   // Short summary shown without expanding.
+    techStack: ["C#", ".NET", "React"],
+                                   // Array of tech tag labels on the card.
+    details:
+      "The longer explanation shown when the user clicks 'Show details'. "  +
+      "Talk about the interesting problems, patterns, or decisions involved.",
+  },
+
+That's all you need to do. The Projects page reads the array automatically —
+you don't need to touch Projects.tsx at all. It's the same pattern as adding
+a row to a seed data class: the view just iterates whatever the repository returns.
+
+The home page also shows a preview of the first 3 projects from this array
+(Home.tsx line 20: projects.slice(0, 3)), so if you want a different project
+to appear in the preview, just reorder the array.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. HOW THE CSS WORKS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+src/index.css is your design token registry — the single source of truth for
+every colour, font, spacing value, and animation timing on the site.
+
+At the top of index.css you'll see a :root block. In C# terms, think of it as:
+
+  public static class DesignTokens
+  {
+    public static readonly string ColorBg          = "#0a0a0a";
+    public static readonly string ColorSurface      = "#111111";
+    public static readonly string ColorAccent       = "#065f46";  // dark emerald
+    public static readonly string ColorAccentLight  = "#10b981";  // light emerald
+    public static readonly string FontMain          = "Inter, sans-serif";
+    // ... etc.
+  }
+
+In CSS these are called custom properties (or CSS variables). You reference them
+with var(--token-name) instead of hardcoding a value. For example:
+
+  background-color: var(--color-bg);    /* instead of: background-color: #0a0a0a; */
+  color: var(--color-accent-light);     /* instead of: color: #10b981; */
+
+Why does this matter? Because if you want to change the accent colour from
+emerald to, say, blue, you change ONE line:
+
+  --color-accent:       #1e40af;   /* deep blue  */
+  --color-accent-light: #60a5fa;   /* light blue */
+
+...and it propagates everywhere — buttons, links, hover states, focus rings,
+highlighted skill tags. One edit, site-wide change. Exactly like changing a
+static readonly constant and rebuilding.
+
+The key tokens you'll actually want to touch:
+
+  --color-accent         The primary brand colour (currently dark emerald #065f46)
+  --color-accent-light   The lighter variant used for hover and links (#10b981)
+  --color-bg             Page background (#0a0a0a near-black)
+  --color-text           Main text colour (#f5f5f5 near-white)
+  --color-text-muted     Secondary / dim text (#888888 grey)
+  --font-main            Body font (Inter — loaded from Google Fonts)
+
+Each page also has its own CSS file in src/styles/ (e.g. home.css, about.css).
+Those files handle layout and component-specific styles for that page only.
+Treat them like the scoped CSS for a Razor Page — they extend the global tokens
+but don't replace them.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. HOW TO RUN AND BUILD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+All commands are run from the root of the project (where package.json lives).
+
+  npm run dev
+  ─────────────────────────────────────────────────────────
+  Starts the Vite development server, usually at http://localhost:5173
+  Hot module replacement (HMR) is on — save a file and the browser updates
+  instantly without a full reload. This is your dotnet watch equivalent.
+  Use this whenever you're actively working on the site.
+
+  npm run build
+  ─────────────────────────────────────────────────────────
+  Compiles and bundles the entire site into the dist/ folder.
+  TypeScript is type-checked, everything is minified, and assets are hashed
+  for cache-busting. The output in dist/ is what you'd deploy to a host.
+  Equivalent to dotnet publish — produces the artefacts ready for production.
+
+  npm run preview
+  ─────────────────────────────────────────────────────────
+  Serves the dist/ folder locally so you can verify the production build
+  looks right before deploying. Like running your published output locally
+  with dotnet run --environment Production.
+
+  npm install
+  ─────────────────────────────────────────────────────────
+  Installs/restores all dependencies from package.json.
+  Equivalent to dotnet restore — run this after cloning the repo or after
+  someone adds a new package.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. QUICK CHEAT SHEET — "I WANT TO CHANGE X → EDIT THIS FILE"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  What you want to change                   File to edit
+  ──────────────────────────────────────── ──────────────────────────────────
+  Your name in the hero banner              src/pages/Home.tsx  (line 36)
+  Hero tagline / eyebrow text               src/pages/Home.tsx  (lines 34, 38)
+  Intro paragraph on the home page          src/pages/Home.tsx  (lines 50-54)
+  Stat cards (5+ Projects, 2+ Years…)       src/pages/Home.tsx  (lines 57-73)
+
+  Bio paragraphs                            src/pages/About.tsx (lines 18-40)
+  "Currently studying" card                 src/pages/About.tsx (line 47)
+  "Currently building" list                 src/pages/About.tsx (lines 51-55)
+  "Interested in" list                      src/pages/About.tsx (lines 60-64)
+  Location ("Based in")                     src/pages/About.tsx (line 69)
+
+  Add / edit a project                      src/projects.ts
+  Project preview order on home page        src/projects.ts (array order)
+
+  Skills / tech tags                        src/pages/Skills.tsx (lines 9-29)
+  "Currently Learning" items                src/pages/Skills.tsx (lines 24-28)
+  "Always learning" prose                   src/pages/Skills.tsx (lines 63-69)
+
+  GitHub link + label                       src/pages/Contact.tsx (lines 109, 115)
+  LinkedIn link                             src/pages/Contact.tsx (line 119)
+  Email address + label                     src/pages/Contact.tsx (lines 128, 131)
+  Contact form submit behaviour             src/pages/Contact.tsx (lines 23-27)
+
+  Accent / brand colour (whole site)        src/index.css  --color-accent
+  Background colour                         src/index.css  --color-bg
+  Body font                                 src/index.css  --font-main
+  Navbar logo text ("Sigge.")               src/components/Navbar.tsx (line 14)
+  Add a new page / route                    src/pages/ + src/App.tsx + Navbar.tsx
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+A FEW THINGS WORTH KNOWING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+JSX / TSX is just C# with a different syntax for XML-like bits.
+  A .tsx file is TypeScript + JSX. The return () => (...) block is the "view" —
+  it describes what gets rendered. HTML attributes follow camelCase (className
+  instead of class, htmlFor instead of for) because class and for are reserved
+  keywords in JavaScript.
+
+HTML entities like &apos; and &amp; are normal.
+  Inside JSX, you can't use ' or & directly in text content — use &apos; for
+  apostrophes and &amp; for ampersands. The browser renders them correctly.
+
+React state (useState) is like a backing field with a notification.
+  const [isMenuOpen, setIsMenuOpen] = useState(false) gives you:
+    - isMenuOpen  — the current value (read-only like a property getter)
+    - setIsMenuOpen — the setter that triggers a re-render (like INotifyPropertyChanged)
+  You'll only need to touch this if you're adding new interactive behaviour.
+
+The form doesn't actually send email yet.
+  Contact.tsx's handleSubmit currently does console.log() and flips a "submitted"
+  flag. When you're ready to hook it up for real, look at Formspree, EmailJS,
+  or point it at your own ASP.NET Core endpoint.
+
+Good luck, Sigge — the site looks great. Keep shipping.
+
+  — Freya
