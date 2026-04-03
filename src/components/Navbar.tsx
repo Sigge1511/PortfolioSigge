@@ -18,7 +18,7 @@ function Navbar() {
     <header className={'navbar' + (isOpen ? ' is-open' : '')} role="banner">
       <div className="navbar__inner">
         <Link to="/" className="navbar__logo" onClick={closeMenu}>
-          Sigge
+          Home
         </Link>
         <button
           className="navbar__toggle"

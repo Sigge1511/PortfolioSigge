@@ -1,4 +1,5 @@
 ﻿import '../styles/pages/about.css';
+import profileImg from '../assets/MSigfeldt.jpg';
 
 const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Music', 'Defense', 'Design', 'Typography', 'Dogs', 'Rare plants & gardening', 'Caffeine'];
 
@@ -14,14 +15,14 @@ function About() {
       <div className="about__content">
         <section className="about__profile" aria-label="Profile">
           <div className="about__photo-container">
-            <div className="about__photo-placeholder" role="img" aria-label="Profile photo">
-              <span>Photo</span>
-              <span>coming soon</span>
-            </div>
+            <img
+                src={profileImg}
+                alt="Maja Sigfeldt"
+                className="about__profile-image"/>
           </div>
           <div className="about__bio">
             <div className="about__bio-text">
-              <p>Hi - I am Sigge. A budding developer and fullstack .NET student based in Östersund, working mainly with .NET, but also constantly learning new stuff.</p>
+              <p>Hi - I am Maja Sigfeldt, aka Sigge. A budding developer and fullstack .NET student based in Östersund, working mainly with .NET, but also constantly learning new stuff.</p>
                           <p>I started programming as a way to discover how things work – and why not when they don't. I'm a former journalist but early warning signs were always there,
                               like liking new software more than new interview subjects and being too excited when talking to the IT Support when there were big (or small) issues.
                               I'm not one of those kids that has been coding since I was young and I'm not a gamer, but I'm always dangerously curious, like figuring out the bigger picture and inherently interested in how things function.</p>
