@@ -14,63 +14,56 @@
    Change a value here and it propagates to every element.
    ══════════════════════════════════════════════════════════════ */
 :root {
-  /* ── Colour palette ─────────────────────────────────────────
+    /* ── Colour palette ─────────────────────────────────────────
      Monochrome dark base + dark emerald accent.
      Each variable is like a named colour constant.            */
-  --color-bg:           #0a0a0a;   /* deepest background — near-black         */
-  --color-surface:      #111111;   /* card and panel surface                  */
-  --color-surface-2:    #1a1a1a;   /* raised surface, hover state background  */
-  --color-border:       #222222;   /* borders and dividers                    */
-  --color-text:         #f5f5f5;   /* primary text — near-white               */
-  --color-text-muted:   #888888;   /* secondary / placeholder text            */
-  --color-accent:       #065f46;   /* dark emerald — CTAs, active states      */
-  --color-accent-light: #10b981;   /* light emerald — hover glow, links       */
-
-  /* ── Typography ─────────────────────────────────────────────
+    --color-bg: #0a0a0a; /* deepest background — near-black         */
+    --color-surface: #111111; /* card and panel surface                  */
+    --color-surface-2: #1a1a1a; /* raised surface, hover state background  */
+    --color-border: #222222; /* borders and dividers                    */
+    --color-text: #f5f5f5; /* primary text — near-white               */
+    --color-text-muted: #888888; /* secondary / placeholder text            */
+    --color-accent: #01421d; /* dark emerald — CTAs, active states      */
+    --color-accent-light: #016922; /* light emerald — hover glow, links       */
+    /* ── Typography ─────────────────────────────────────────────
      --font-main is set once; body inherits it so all elements
      get Inter automatically — like a default style in WPF
      Application.Resources flowing down to all child elements. */
-  --font-main: 'Inter', sans-serif;
-  --font-mono: ui-monospace, Consolas, 'Courier New', monospace;
-
-  /* ── Spacing scale ───────────────────────────────────────────
+    --font-main: 'Inter', sans-serif;
+    --font-mono: ui-monospace, Consolas, 'Courier New', monospace;
+    /* ── Spacing scale ───────────────────────────────────────────
      A near-doubling progression: 4 → 8 → 16 → 24 → 48 → 64px.
      Always use these instead of hardcoded pixel values.        */
-  --space-xs:  4px;
-  --space-sm:  8px;
-  --space-md:  16px;
-  --space-lg:  24px;
-  --space-xl:  48px;
-  --space-2xl: 64px;
-
-  /* ── Layout ──────────────────────────────────────────────────
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 48px;
+    --space-2xl: 64px;
+    /* ── Layout ──────────────────────────────────────────────────
      --nav-height is used to offset content below the sticky nav,
      like a fixed-height toolbar row in a XAML Grid layout.     */
-  --nav-height:      64px;
-  --content-max-w:   1200px;
-  --section-padding: var(--space-xl) var(--space-lg);
-
-  /* ── Cards ───────────────────────────────────────────────────
+    --nav-height: 64px;
+    --content-max-w: 1200px;
+    --section-padding: var(--space-xl) var(--space-lg);
+    /* ── Cards ───────────────────────────────────────────────────
      NO border-radius — sharp corners are a deliberate choice.  */
-  --card-bg:      var(--color-surface);
-  --card-border:  var(--color-border);
-  --card-padding: var(--space-lg);
-
-  /* ── Accent utilities ────────────────────────────────────────*/
-  --accent-bg:     rgba(6, 95, 70, 0.15);    /* semi-transparent emerald fill  */
-  --accent-border: rgba(16, 185, 129, 0.4);  /* emerald border / focus glow    */
-
-  /* ── Transitions ─────────────────────────────────────────────
+    --card-bg: var(--color-surface);
+    --card-border: var(--color-border);
+    --card-padding: var(--space-lg);
+    /* ── Accent utilities ────────────────────────────────────────*/
+    --accent-bg: rgba(6, 95, 70, 0.15); /* semi-transparent emerald fill  */
+    --accent-border: rgba(16, 185, 129, 0.4); /* emerald border / focus glow    */
+    /* ── Transitions ─────────────────────────────────────────────
      Named durations so animation speed is changed in one place.
      Like an enum for motion speed.                             */
-  --transition-fast:   0.18s ease;
-  --transition-normal: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-expand: 0.4s  cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* ── Focus ring ──────────────────────────────────────────────
+    --transition-fast: 0.20s ease;
+    --transition-normal: 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-expand: 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    /* ── Focus ring ──────────────────────────────────────────────
      box-shadow focus ring works on sharp elements without
      needing border-radius on the outline.                       */
-  --focus-ring: 0 0 0 3px var(--accent-border);
+    --focus-ring: 0 0 0 3px var(--accent-border);
 }
 
 /* ══════════════════════════════════════════════════════════════
