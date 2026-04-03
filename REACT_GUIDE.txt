@@ -3,7 +3,7 @@
 ║          Written by Freya · DevRel / Technical Writer                       ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
-Hey Sigge! You've built a really solid portfolio site. This guide is here so
+Hey Sigge! This guide is here so
 you can confidently tweak, update, and extend it without having to reverse-
 engineer everything from scratch every time. Since you live in C# / .NET land,
 I've sprinkled in analogies throughout — React isn't as alien as it looks.
