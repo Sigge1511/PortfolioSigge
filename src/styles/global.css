@@ -22,7 +22,16 @@
     --max-width: 1280px;
     --section-padding-x: clamp(20px, 5vw, 64px);
     --transition: 0.2s ease;
+    --transition-normal: 0.2s ease;
     --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* ProjectList component aliases */
+    --color-surface: var(--bg-secondary);
+    --color-surface-2: var(--bg-tertiary);
+    --color-text: var(--text-primary);
+    --color-text-muted: var(--text-muted);
+    --color-border: var(--border);
+    --color-accent: var(--accent);
+    --color-accent-light: var(--accent-light);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }

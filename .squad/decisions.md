@@ -84,3 +84,86 @@
 - **Prioritise comments on React-specific concepts** that have no direct C# equivalent (key, props, hooks, JSX .map rendering).
 - **Keep comments on their own line** when the code line is already long.
 
+---
+
+## Morgana: Projects List Component Architecture (Filtering & Sorting)
+
+**Date:** 2026-03-29  
+**Arch:** Morgana  
+**Status:** Approved for Selene/Lyra/Nyx implementation  
+
+### 1. Component Structure: Layered Composition
+
+**Decision:** Three focused components in `src/components/ProjectList/`:
+- `ProjectList.tsx` — orchestrator (state, data flow, rendering)
+- `FilterControls.tsx` — filter UI (tech stack selections)
+- `SortMenu.tsx` — sort UI (name, date, complexity)
+
+**Rationale:** Splits concerns (filters, sort, list rendering) into independent, single-responsibility units. Each component fits the 150-line JSX budget. Enables reuse of FilterControls and SortMenu on future dashboard pages. Lyra and Nyx get clear test seams.
+
+---
+
+### 2. Data Flow: Adapter Pattern + Environment Toggle
+
+**Decision:** Use **adapter pattern** via `projectsAdapter.ts` to abstract mock vs. real API:
+
+```tsx
+export interface ProjectsAdapter {
+  fetchProjects(): Promise<Project[]>;
+}
+
+export function createProjectsAdapter(source: 'mock' | 'api'): ProjectsAdapter {
+  return source === 'mock' ? new MockProjectsAdapter() : new ApiProjectsAdapter();
+}
+```
+
+**Rationale:** Decouples ProjectList from data source. API contract changes require patching only the adapter. Single-source switch via environment flag. Clear contract for Nyx: inject adapter into ProjectList, assert correct fetch behavior.
+
+---
+
+### 3. State Management: Local useState + Stub Context
+
+**Decision:** Use **local `useState`** in ProjectList for projects, loading, error, filters, sort. Create a **reusable `FilterContext.tsx` stub** (no-op implementation) for future cross-page filter sharing.
+
+**Rationale:** `useState` is fast and sufficient for single-page usage. Context stub preserves scaling option without over-engineering now. No global state manager needed for a portfolio site.
+
+---
+
+### 4. Props Interface: Explicit Contracts
+
+**Decision:** All three components accept explicit, non-optional props. No magic defaults.
+
+```tsx
+interface ProjectListProps {
+  projects: Project[];
+  isLoading: boolean;
+  error: string | null;
+  sortBy: 'name' | 'date' | 'complexity';
+  selectedTechs: Set<string>;
+  onSortChange: (order: SortOrder) => void;
+  onFilterChange: (techs: Set<string>) => void;
+  onSelectProject?: (project: Project) => void;
+}
+```
+
+**Rationale:** Explicit props make data flow traceable. A reader follows props in/out without hunting for hidden defaults. This is "single source of truth" applied to prop contracts.
+
+---
+
+### 5. Test Seams: data-testid + Callbacks
+
+**Decision:** Add `data-testid="filter-controls"`, `data-testid="sort-menu"`, etc. Export typed callbacks so tests assert behavior without spying on internals.
+
+**Rationale:** `data-testid` isolates tests from CSS changes. Callback assertions (e.g., `expect(onFilterChange).toHaveBeenCalledWith(...)`) verify public contract. Familiar to Nyx from C# click-handler testing.
+
+---
+
+### 6. Implementation Checklist
+
+- **Selene:** Place in `src/components/ProjectList/`. Add `complexity` field (1–5) to all projects in `projects.ts`. Inject adapter via props.
+- **Lyra:** Use existing CSS custom properties from `index.css`. Add styles in `src/styles/components/ProjectList.css`. Verify keyboard navigation.
+- **Nyx:** Unit test each component. Integration test: swap adapters, verify data flows end-to-end. Run axe accessibility checks.
+- **Projects.tsx page:** Update to use `ProjectList` component. Keep expand/collapse state in page (card-specific UI).
+
+---
+

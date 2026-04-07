@@ -9,6 +9,137 @@
 
 - Created a comprehensive test plan and manual verification checklist for the PortfolioSigge React/TypeScript project, covering build, type, UI, accessibility, security, and pedagogical comment requirements. Ensures all acceptance criteria and regression risks are addressed for PR review and QA.
 
+### 2026-03-29 (LATEST): QA Deliverables — Contact Page v2 + ProjectList (Phase 3)
+
+**Scope:** QA test plan delivery for Contact page v2 and ProjectList component integration. Parallel phase with Lyra (UX validation) and Selene (ProjectList implementation). All deliverables ready for manual test execution.
+
+**Deliverables (4 documents):**
+
+1. **QA_TEST_PLAN_Contact_ProjectList.md** (5,100+ lines)
+   - Contact page: Visual regression, responsive (4 breakpoints), form interaction, keyboard nav, WCAG 2.1 AA, parallax fallback
+   - ProjectList: Rendering, filtering (keyword + multi-select tags), sorting (name/date/status/complexity), responsive grid, keyboard nav, accessibility
+   - Test matrix: critical vs. high/nice-to-have prioritization
+   - Edge cases: long titles/descriptions, empty filters, same-date sort stability, mobile parallax fallback
+   - Cross-browser spot checks (Chrome, Firefox, Safari)
+   - Manual test execution workflow, bug recording template, regression risk assessment
+
+2. **QA_CHECKLIST_Contact_ProjectList.md**
+   - Condensed quick-reference checklist for rapid manual testing
+   - Abbreviated test cases (critical path only)
+   - Bug recording template, sign-off tracking
+
+3. **QA_SUMMARY_Contact_ProjectList.md**
+   - Executive summary: scope, acceptance criteria, key coverage areas
+   - Test environment setup and execution instructions
+
+4. **projectlist-test-specification.md**
+   - Unit test cases per component (ProjectList, FilterControls, SortMenu)
+   - Integration test scenarios (filter + sort, adapter toggle, error recovery)
+   - Mock data fixtures (standard, edge cases, same-date stability)
+   - Accessibility requirement matrix (keyboard nav, ARIA, semantic HTML, screen reader)
+   - Performance targets (<100ms filter/sort, 60fps reflow)
+   - Coverage goals: Lines ≥90%, Branches ≥85%, Functions ≥90%
+
+**Test Coverage Summary:**
+- **Contact Page:** 4 breakpoints (320px/768px/1024px/1920px), parallax validation, form focus/blur, input types, keyboard nav, color contrast ≥4.5:1, WAVE/axe checks
+- **ProjectList:** Component render, keyword filter, tag multi-select, sort by name/date/status/complexity, responsive grid layout, keyboard nav, semantic HTML, ARIA labels, performance benchmarks
+- **165+ test cases** across both features, with critical vs. nice-to-have prioritization
+- **Tools:** axe DevTools, WAVE, Lighthouse, W3C validators, browser DevTools
+
+**Key Learning:**
+- Test plan structure (critical vs. nice-to-have) enables QA to prioritize execution. Not all edge cases are blockers; clear prioritization reduces test fatigue.
+- 4-breakpoint responsive strategy (320px/768px/1024px/1920px) is comprehensive enough. No need for every pixel range; these represent distinct device classes (mobile phone / tablet / desktop / widescreen).
+- Parallax edge case (mobile fallback to scroll) is documented as "nice-to-have", not critical. Allows QA to focus on form functionality first, parallax behavior second.
+- ProjectList filtering + sorting test scenarios benefit from mock/real adapter toggle. Test plan calls out both paths explicitly so QA doesn't miss API integration testing.
+
+**Acceptance Criteria Met:**
+- ✅ All contact page acceptance criteria covered (visual hierarchy, responsive, form interaction, a11y)
+- ✅ All ProjectList acceptance criteria covered (filtering, sorting, responsive, a11y)
+- ✅ Edge cases identified and prioritized
+- ✅ Manual + automated test strategies documented
+- ✅ Regression risk assessment complete
+
+**Status:** Ready for QA execution. Contact page is live; ProjectList implementation is pending Selene's handoff from integration phase.
+
+**Follow-ups:**
+- QA executes manual tests per QA_TEST_PLAN_Contact_ProjectList.md
+- ProjectList component integration handoff from Selene enables QA testing (currently blocked; component not yet deployed)
+- WAVE/axe DevTools scans recommended for a11y validation
+- Sign-off tracking when tests complete and no critical bugs found
+
+---
+
+### Previous: 2026-03-29: QA Test Plan — Contact Page v2 + ProjectList Integration
+
+**Requested by:** MajaSigfeldt  
+**Deliverables:** Two comprehensive QA test plan documents for Contact Page and ProjectList integration.
+
+1. **QA_TEST_PLAN_Contact_ProjectList.md** — Complete test specification (5,100+ lines)
+   - Contact Page: Visual regression, responsive, form interaction, keyboard nav, WCAG 2.1 AA
+   - ProjectList: Rendering, filtering (keyword + tags), sorting (name/date/status/complexity), responsive, keyboard nav, a11y
+   - Acceptance criteria, critical vs. nice-to-have tests, edge cases, known limitations
+   - Manual test execution workflow, bug recording template
+   - Cross-browser spot checks (Chrome, Firefox, Safari)
+   - Regression risk assessment
+
+2. **QA_CHECKLIST_Contact_ProjectList.md** — Quick reference checklist
+   - Condensed test cases for rapid manual testing
+   - Bug recording template
+   - Sign-off tracking
+
+**Key Coverage:**
+- **Contact Page:** Parallax effect validation, responsive at 4 breakpoints (320px, 768px, 1024px, 1920px), form focus/keyboard nav, color contrast ≥4.5:1, cross-browser
+- **ProjectList:** Component render, keyword filter, tag multi-select filter, sort by name/date/status/complexity, responsive grid, keyboard nav, ARIA/semantic HTML, performance (<100ms filter/sort, 60fps reflow)
+- **Acceptance Criteria:** Clear pass/fail for both features, critical vs. high/nice-to-have prioritization
+- **Edge Cases:** Long titles/descriptions, empty filters, same-date sort stability, mobile parallax fallback
+- **Tools:** axe DevTools, WAVE, Lighthouse, W3C validators, browser DevTools
+
+**Testing ready for:** Immediate manual test execution on Contact page (LIVE) and ProjectList implementation (pending component integration).
+
+### 2026-03-29: ProjectList Component Test Strategy
+
+**Deliverables:** Three comprehensive test documentation files for the ProjectList component (filtering, sorting, project cards).
+
+1. **projectlist-test-strategy.md** — High-level strategy document
+   - Test suite architecture and directory structure
+   - Mock data fixtures (standard, edge cases, same-date stability)
+   - Unit test cases per component (ProjectList, FilterBar, SortControls, ProjectCard)
+   - Integration test scenarios (filter + sort, clearing, mock/real data toggle, error recovery)
+   - Edge case coverage (empty lists, long names, many tags, unknown status)
+   - Accessibility requirements (keyboard nav, ARIA, semantic HTML)
+   - Coverage goals: Lines ≥90%, Branches ≥85%, Functions ≥90%
+
+2. **projectlist-test-specification.md** — Detailed test case specification
+   - 80+ specific test cases organized by component and behavior
+   - Test data strategy with fixture definitions (MOCK_PROJECTS, EDGE_CASE_PROJECTS, SAME_DATE_PROJECTS)
+   - Comprehensive unit test matrix for each of 4 components
+   - 6 integration test scenarios
+   - 12 edge case table (data, network, filter, sort, rendering)
+   - Complete a11y requirement matrix (keyboard nav, ARIA, semantic HTML, screen reader)
+   - Performance considerations and regression risk assessment
+   - Success criteria and execution commands
+
+3. **projectlist-implementation-guide.md** — Developer implementation guide
+   - Step-by-step checklist (phases 1-5: component, infrastructure, unit, integration, polish)
+   - Complete reference implementations for component types
+   - Test template code (ProjectCard, FilterBar, SortControls, ProjectList, integration)
+   - Command reference for running tests locally
+   - Debugging tips and common patterns
+   - Success checklist before PR
+
+**Configuration updates:**
+   - Updated package.json with test scripts: `npm test`, `npm test:coverage`
+   - Created vitest.config.ts with jsdom environment, coverage thresholds, test setup
+   - Created src/__tests__/setup.ts with cleanup, window.matchMedia mock
+
+**Risk assessment:** ProjectList is core to portfolio showcase; test strategy prioritizes:
+   - Filter + sort interaction (common user workflow)
+   - Empty/error states (graceful degradation)
+   - Keyboard accessibility (all interactive elements must be navigable)
+   - Edge data (very long names, many tags, unknown status) → no crashes or layout breaks
+
+**Strategy is complete and ready for implementation by code teams (Atlas, etc.).**
+
 ### 2026-03-21T15xxZ: Issue #349 — CMS risk checks
 - Added [Trait("Category", "Unit")] to 18 CMS test classes (GrainStates, CmsModels, Service.Tests) to enable CI lane filtering. Created docs/cms/test-categories.md documenting boundaries and filter commands.
 - Confirmed all three CMS test projects are Unit; future integration tests must go in a new Cms.Integration.Tests project.
