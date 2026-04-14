@@ -1,5 +1,5 @@
-import { FilterState, FilterBarProps } from './types';
-import { ChangeEvent } from 'react';
+import type { FilterBarProps } from './types';
+import type { ChangeEvent } from 'react';
 
 export function FilterBar({ 
   onFilterChange, 

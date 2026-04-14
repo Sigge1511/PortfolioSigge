@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
-import { Project } from '../../projects';
+//import type { Project } from '../../projects';
 import { FilterBar } from './FilterBar';
 import { SortControls } from './SortControls';
 import { ProjectCard } from './ProjectCard';
-import { FilterState, SortOrder, ProjectListProps, ProjectListState } from './types';
+import type { FilterState, SortOrder, ProjectListProps } from './types';
 import { mockProjects } from './mockData';
 import './ProjectList.css';
 
