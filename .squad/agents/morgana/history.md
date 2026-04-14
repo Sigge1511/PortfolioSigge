@@ -155,3 +155,22 @@ Full trace of the new-post creation flow: `OnInitializedAsync` → `LoadPageData
 - Pedagogical C#-comparison comments specified for: interface vs C# interface, useState vs INotifyPropertyChanged, .map() vs LINQ Select, event handlers vs C# delegates.
 - 5 sample projects defined: portfolio site, .NET weather API, task tracker (SignalR), C# quiz CLI, recipe book (React).
 - Decision filed to `.squad/decisions/inbox/morgana-portfolio-architecture.md`.
+
+### 2026-03-29: Projects List Component Architecture (Filtering & Sorting)
+
+Defined complete architecture for a reusable projects list component with filtering and sorting, supporting both mock and real API data.
+
+**5 decisions filed to `.squad/decisions.md`:**
+1. **Component structure:** Three-layer composition (ProjectList orchestrator + FilterControls UI + SortMenu UI) in `src/components/ProjectList/`. Each <150 lines, single responsibility, reusable across pages.
+2. **Data flow:** Adapter pattern via `projectsAdapter.ts` factory. Decouples ProjectList from data source (mock vs. API). Environment-based toggle, single-source switch.
+3. **State management:** Local `useState` in ProjectList for immediate data. Create reusable `FilterContext.tsx` stub for future cross-page filter sharing (no-op now, scalable later).
+4. **Props interface:** Explicit, non-optional contracts for all components. Data flow traceable; no magic defaults. Single source of truth for prop signatures.
+5. **Test seams:** `data-testid` attributes + typed callbacks. Tests assert public contract without spying on internals. Familiar pattern to Nyx (C# event-handler testing mental model).
+
+**Implementation handoff to team:**
+- Selene: Place components in `src/components/ProjectList/`. Add `complexity: 1-5` field to all projects in `projects.ts`. Inject adapter via props (not hardcoded).
+- Lyra: Use existing CSS custom properties. Verify keyboard nav (Tab through filters, sort select). Add styles in `src/styles/components/ProjectList.css`.
+- Nyx: Unit test each component. Integration test: swap adapters, verify data flows. Run axe accessibility audit.
+- Projects.tsx page: Update to consume `ProjectList` component; keep expand/collapse state in page (card-specific UI).
+
+All decisions are north-star guidance for implementation. Any deviation requires architecture review.
