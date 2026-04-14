@@ -1,7 +1,7 @@
 ﻿import '../styles/pages/about.css';
 import profileImg from '../assets/MSigfeldt.jpg';
 
-const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Music', 'Defense', 'Design', 'Typography', 'Dogs', 'Rare plants & gardening', 'Caffeine'];
+const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Music', 'Defense', 'Design', 'Cyber security', 'Dogs', 'Rare plants & gardening', 'Caffeine', 'Knitting', 'Painting'];
 
 function About() {
   return (
@@ -27,8 +27,7 @@ function About() {
                               like liking new software more than new interview subjects and being too excited when talking to the IT Support when there were big (or small) issues.
                               I'm not one of those kids that has been coding since I was young and I'm not a gamer, but I'm always dangerously curious, like figuring out the bigger picture and inherently interested in how things function.</p>
                           <p>This portfolio is both a project showcase in of itself and a living record of what I am learning, while in progress. Just like this page was built as my first ever React & TypeScript project ever.
-                              I'm curious about working with agentic ai, my current favorite is Brady Gaster's Squad,
-                              but I'm also really nerdy about cyber security and saftey in general - so we'll see how that works together.</p>
+                              I'm curious about working with agentic ai but I'm also really nerdy about cyber security and saftey in general - so we'll see how that works together.</p>
             </div>
           </div>
         </section>
@@ -45,7 +44,7 @@ function About() {
             <p className="about__section-label">Approach</p>
             <h2 className="about__section-title">How I work</h2>
             <div className="about__section-body">
-              <p>I prefer to start by zooming out and seeing the bigger picture. Then I start creating my checklists with desired features, develop some mood boards and get cracking with architecture.</p>
+              <p>I prefer to start by zooming out and seeing the bigger picture and drawing up the architechture for a good solution. Then I start creating my checklists with desired features, develop some mood boards and get cracking.</p>
             </div>
           </section>
           <section aria-label="Interests">

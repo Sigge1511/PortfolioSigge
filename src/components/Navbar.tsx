@@ -3,11 +3,12 @@ import { NavLink, Link } from 'react-router-dom';
 import '../styles/navbar.css';
 
 const navItems = [
-  { label: 'Home',     to: '/' },
-  { label: 'About',    to: '/about' },
-  { label: 'Projects', to: '/projects' },
-  { label: 'Skills',   to: '/skills' },
-  { label: 'Contact',  to: '/contact' },
+  { label: 'Home',                    to: '/' },
+  { label: 'About',                   to: '/about' },
+  { label: 'Projects',                to: '/projects' },
+  { label: 'Skills',                  to: '/skills' },
+  { label: "Don't take my word for it", to: '/recommendations' },
+  { label: 'Contact',                 to: '/contact' },
 ];
 
 function Navbar() {

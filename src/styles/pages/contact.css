@@ -25,3 +25,9 @@
 .contact-form__submit { align-self: flex-start; background-color: var(--accent); color: var(--text-primary); border: 1px solid var(--accent); padding: 14px 32px; font-family: var(--font-main); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background-color var(--transition), border-color var(--transition); }
 .contact-form__submit:hover { background-color: var(--accent-light); border-color: var(--accent-light); }
 @media (min-width: 1024px) { .contact__content { grid-template-columns: 1fr 1fr; gap: var(--space-3xl); } }
+
+.contact-form__error { font-size: 0.8rem; color: #e05c5c; margin-top: 2px; }
+.contact-form__submit:disabled { opacity: 0.55; cursor: not-allowed; }
+.contact-form__status { margin-top: var(--space-lg); padding: var(--space-md) var(--space-lg); font-size: 0.9rem; font-weight: 500; border: 1px solid transparent; }
+.contact-form__status--success { background-color: color-mix(in srgb, var(--accent-bright) 12%, transparent); border-color: var(--accent-bright); color: var(--accent-bright); }
+.contact-form__status--error { background-color: color-mix(in srgb, #e05c5c 12%, transparent); border-color: #e05c5c; color: #e05c5c; }
