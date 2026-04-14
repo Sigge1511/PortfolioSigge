@@ -1,4 +1,4 @@
-import { SortControlsProps, SortOrder } from './types';
+import type { SortControlsProps } from './types';
 
 export function SortControls({ onSortChange, currentSort }: SortControlsProps) {
   const handleSort = (field: 'name' | 'date' | 'status') => {

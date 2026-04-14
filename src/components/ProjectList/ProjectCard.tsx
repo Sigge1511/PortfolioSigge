@@ -1,4 +1,4 @@
-import { ProjectCardProps } from './types';
+import type { ProjectCardProps } from './types';
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
