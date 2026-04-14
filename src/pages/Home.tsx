@@ -7,8 +7,8 @@ function Home() {
     <div className="home">
       <HeroBanner
         label="Developer &amp; Creator"
-        title="Sigge"
-        subtitle="Building clean, thoughtful software with .NET, React, and TypeScript."
+        title="Welcome to my place"
+        subtitle="Building clean software with .NET and React, with C#, CSS, TypeScript, HTML, XAML and more."
         primaryCta={{ label: 'View Projects', to: '/projects' }}
         secondaryCta={{ label: 'About Me', to: '/about' }}
       />
@@ -18,14 +18,14 @@ function Home() {
             <p className="home__intro-label">Who I am</p>
             <p className="home__intro-text">
               I am a <strong>developer and student</strong> based in Sweden,
-              focused on building clean, well-structured applications.
+              focused on building clean, well-structured applications - and getting serious boosts from AI.
             </p>
           </div>
           <div>
             <p className="home__intro-label">What I do</p>
             <p className="home__intro-text">
               Full-stack development with a focus on <strong>.NET</strong> and{' '}
-              <strong>React</strong>. I care about code quality and accessibility.
+              <strong>React</strong>. I care about code quality, saftey and sleek design.
             </p>
           </div>
         </div>
@@ -35,7 +35,7 @@ function Home() {
           <div className="home__stat"><p className="home__stat-number">5+</p><p className="home__stat-label">Projects</p></div>
           <div className="home__stat"><p className="home__stat-number">3</p><p className="home__stat-label">Languages</p></div>
           <div className="home__stat"><p className="home__stat-number">2+</p><p className="home__stat-label">Years coding</p></div>
-          <div className="home__stat"><p className="home__stat-number">infinity</p><p className="home__stat-label">Coffee consumed</p></div>
+          <div className="home__stat"><p className="home__stat-number">infinity</p><p className="home__stat-label">Caffeine consumed</p></div>
         </div>
       </section>
       <section className="home__ctas-section" aria-label="Explore">

@@ -352,7 +352,7 @@ All commands are run from the root of the project (where package.json lives).
   Accent / brand colour (whole site)        src/index.css  --color-accent
   Background colour                         src/index.css  --color-bg
   Body font                                 src/index.css  --font-main
-  Navbar logo text ("Sigge.")               src/components/Navbar.tsx (line 14)
+  Navbar logo text ("Sigge.") DELETE THIS   src/components/Navbar.tsx (line 14)
   Add a new page / route                    src/pages/ + src/App.tsx + Navbar.tsx
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

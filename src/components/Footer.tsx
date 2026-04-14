@@ -8,7 +8,7 @@ function Footer() {
     <footer className="footer" aria-label="Site footer">
       <div className="footer__inner">
         <div className="footer__left">
-          <span className="footer__brand">Sigge</span>
+          <span className="footer__brand">By Maja Sigfeldt</span>
           <p className="footer__tagline">Developer &amp; Creator</p>
         </div>
         <div className="footer__right">

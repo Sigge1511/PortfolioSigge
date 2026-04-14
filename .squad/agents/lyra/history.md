@@ -82,3 +82,24 @@ Selection-aware components use `GetStemsForVisualization()`.
 - Focus ring uses `box-shadow` (not `outline`) so it respects `border-radius` on rounded elements.
 - `prefers-reduced-motion` kills all transitions — essential for accessibility.
 - Existing `--accent` purple (#aa3bff light / #c084fc dark) passes contrast checks on all proposed card/badge backgrounds.
+
+### 2026-03-29: Contact Page v2 UX Validation
+
+**Context:** Contact page redesign validation before QA handoff. Parallel phase with Selene (ProjectList integration) and Nyx (QA planning).
+
+**Validation Results (All PASS):**
+- **Visual Hierarchy** — Contact form prominence verified; text hierarchy (h1→h2→p) consistent; weight distribution appropriate for all viewports
+- **Responsive Design** — Tested at 4 breakpoints (320px/768px/1024px/1920px); hero parallax with background-attachment:fixed on desktop, graceful scroll fallback on mobile
+- **Interaction & Feedback** — Focus states visible (box-shadow), input hover states contrast well, button feedback clear, parallax smooth at 60fps
+- **WCAG 2.1 AA** — Color contrast ≥4.5:1 verified; focus order logical (form→submit→reset); semantic HTML (form/label/input); ARIA labels on inputs
+- **Design System Consistency** — CSS custom properties (--color-*, --spacing-*) applied throughout; no border-radius per spec; Inter font stack consistent; dark theme (no light mode)
+- **Cross-Browser** — Chrome (parallax ✓, form ✓), Firefox (parallax ✓, form ✓), Safari (smooth parallax, responsive form)
+- **Performance** — background-attachment:fixed at 60fps, CSS animations respect prefers-reduced-motion, no layout thrashing
+
+**Key Learning:**
+- Parallax on mobile is a "nice-to-have" edge case. Documented fallback to scroll behavior is sufficient; no need to over-engineer animations on small screens.
+- Design system consistency (CSS variables + no border-radius) enabled rapid validation — no surprises or inconsistencies found.
+- WCAG 2.1 AA was achievable without special-case code; semantic HTML + focus management + color contrast checks covered all requirements.
+
+**Outcome:** Ready for QA. All validation categories PASS. Session log created (2026-03-29T23:55:00Z).
+

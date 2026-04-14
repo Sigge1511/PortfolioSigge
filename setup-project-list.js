@@ -1,20 +1,12 @@
-import { fileURLToPath, URL } from 'node:url';
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import fs from 'fs';
-import path from 'path';
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
 
-// Compute __dirname for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Create ProjectList component files
 const projectListDir = path.join(__dirname, 'src', 'components', 'ProjectList');
-if (!fs.existsSync(projectListDir)) {
-    fs.mkdirSync(projectListDir, { recursive: true });
-    
-    // types.ts
-    fs.writeFileSync(path.join(projectListDir, 'types.ts'), `import { Project } from '../../projects';
+fs.mkdirSync(projectListDir, { recursive: true });
+
+// Create types.ts
+fs.writeFileSync(path.join(projectListDir, 'types.ts'), `import { Project } from '../../projects';
 
 export interface FilterState {
   keywords: string;
@@ -58,8 +50,8 @@ export interface ProjectListState {
 }
 `);
 
-    // mockData.ts
-    fs.writeFileSync(path.join(projectListDir, 'mockData.ts'), `import { Project } from '../../projects';
+// Create mockData.ts
+fs.writeFileSync(path.join(projectListDir, 'mockData.ts'), `import { Project } from '../../projects';
 
 export const mockProjects: Project[] = [
   {
@@ -119,8 +111,8 @@ export const mockProjects: Project[] = [
 ];
 `);
 
-    // ProjectCard.tsx
-    fs.writeFileSync(path.join(projectListDir, 'ProjectCard.tsx'), `import { ProjectCardProps } from './types';
+// Create ProjectCard.tsx
+fs.writeFileSync(path.join(projectListDir, 'ProjectCard.tsx'), `import { ProjectCardProps } from './types';
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
@@ -170,8 +162,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 }
 `);
 
-    // FilterBar.tsx
-    fs.writeFileSync(path.join(projectListDir, 'FilterBar.tsx'), `import { FilterState, FilterBarProps } from './types';
+// Create FilterBar.tsx
+fs.writeFileSync(path.join(projectListDir, 'FilterBar.tsx'), `import { FilterState, FilterBarProps } from './types';
 import { ChangeEvent } from 'react';
 
 export function FilterBar({ 
@@ -247,8 +239,8 @@ export function FilterBar({
 }
 `);
 
-    // SortControls.tsx
-    fs.writeFileSync(path.join(projectListDir, 'SortControls.tsx'), `import { SortControlsProps, SortOrder } from './types';
+// Create SortControls.tsx
+fs.writeFileSync(path.join(projectListDir, 'SortControls.tsx'), `import { SortControlsProps, SortOrder } from './types';
 
 export function SortControls({ onSortChange, currentSort }: SortControlsProps) {
   const handleSort = (field: 'name' | 'date' | 'status') => {
@@ -302,8 +294,8 @@ export function SortControls({ onSortChange, currentSort }: SortControlsProps) {
 }
 `);
 
-    // index.tsx
-    fs.writeFileSync(path.join(projectListDir, 'index.tsx'), `import { useState, useMemo } from 'react';
+// Create index.tsx (will be split due to length)
+const indexContent = `import { useState, useMemo } from 'react';
 import { Project } from '../../projects';
 import { FilterBar } from './FilterBar';
 import { SortControls } from './SortControls';
@@ -431,10 +423,12 @@ export function ProjectList({
 }
 
 export default ProjectList;
-`);
+`;
 
-    // ProjectList.css
-    fs.writeFileSync(path.join(projectListDir, 'ProjectList.css'), `.project-list {
+fs.writeFileSync(path.join(projectListDir, 'index.tsx'), indexContent);
+
+// Create ProjectList.css
+const cssContent = `.project-list {
   padding: var(--space-lg) 0;
 }
 
@@ -705,17 +699,8 @@ export default ProjectList;
     align-items: flex-start;
   }
 }
-`);
+`;
 
-    console.log('✅ ProjectList component files created successfully!');
-}
+fs.writeFileSync(path.join(projectListDir, 'ProjectList.css'), cssContent);
 
-export default defineConfig({
-    plugins: [react()],
-    base: './', // added to ensure correct asset paths in production on strato/GHA
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
-        }
-    },
-});
+console.log('✅ All ProjectList component files created successfully!');

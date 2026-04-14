@@ -1,0 +1,242 @@
+/* ── Recommendations – sticky stacking cards ─────────────────────── */
+
+.rec {
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+  background-color: var(--bg);
+  padding-bottom: var(--space-3xl);
+}
+
+/* ── Page header ─────────────────────────────────────────────────── */
+.rec__header {
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-tertiary);
+}
+
+.rec__header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.rec__page-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: var(--space-md);
+}
+
+.rec__headline {
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.rec__subline {
+  margin-top: var(--space-md);
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 520px;
+}
+
+/* ── Cards stack ─────────────────────────────────────────────────── */
+.rec__cards {
+  display: grid;
+  grid-template-rows: repeat(var(--card-count, 5), 78vh);
+  gap: 0;
+  padding: var(--space-2xl) var(--section-padding-x) 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.rec__card {
+  position: sticky;
+  top: calc(var(--nav-height) + 12px + var(--card-offset, 0px));
+  height: 78vh;
+  border-radius: 16px;
+  padding: clamp(28px, 5vw, 52px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition-slow);
+  will-change: transform;
+}
+
+.rec__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 80% 60% at 10% 0%,
+    var(--card-glow, rgba(6, 69, 22, 0.18)) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Alternating card backgrounds for depth */
+.rec__card:nth-child(odd)  { background-color: var(--bg-secondary); }
+.rec__card:nth-child(even) { background-color: #161616; }
+
+/* Stagger the sticky top so cards peek beneath each other */
+.rec__card:nth-child(1) { --card-offset: 0px; }
+.rec__card:nth-child(2) { --card-offset: 16px; }
+.rec__card:nth-child(3) { --card-offset: 32px; }
+.rec__card:nth-child(4) { --card-offset: 48px; }
+.rec__card:nth-child(5) { --card-offset: 64px; }
+.rec__card:nth-child(6) { --card-offset: 80px; }
+
+/* ── Card inner layout ───────────────────────────────────────────── */
+.rec__card-quote {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rec__quote-mark {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.6;
+  color: var(--accent-bright);
+  opacity: 0.4;
+  font-family: Georgia, serif;
+  margin-bottom: var(--space-md);
+  display: block;
+  user-select: none;
+}
+
+.rec__quote-text {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  line-height: 1.65;
+  color: var(--text-primary);
+  font-weight: 400;
+  max-width: 680px;
+}
+
+.rec__card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+.rec__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.rec__avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.rec__person-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rec__person-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.rec__person-role {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+.rec__relation-badge {
+  margin-left: auto;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-bright);
+  border: 1px solid var(--accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+
+/* ── Footer note ─────────────────────────────────────────────────── */
+.rec__note {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) var(--section-padding-x) var(--space-2xl);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Scroll hint ─────────────────────────────────────────────────── */
+.rec__scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: var(--space-xl) var(--section-padding-x) var(--space-xl);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding: 0 var(--section-padding-x);
+}
+
+.rec__scroll-hint svg {
+  animation: bounce-down 1.6s ease-in-out infinite;
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .rec__cards {
+    grid-template-rows: repeat(var(--card-count, 5), 85vh);
+  }
+
+  .rec__card {
+    height: 85vh;
+    padding: 28px 20px;
+    border-radius: 12px;
+  }
+
+  .rec__card:nth-child(2) { --card-offset: 10px; }
+  .rec__card:nth-child(3) { --card-offset: 20px; }
+  .rec__card:nth-child(4) { --card-offset: 30px; }
+  .rec__card:nth-child(5) { --card-offset: 40px; }
+  .rec__card:nth-child(6) { --card-offset: 50px; }
+
+  .rec__relation-badge { display: none; }
+}
