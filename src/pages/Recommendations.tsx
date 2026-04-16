@@ -1,4 +1,4 @@
-import { type CSSProperties } from 'react';
+import { type CSSProperties, useEffect, useRef } from 'react';
 import '../styles/pages/recommendations.css';
 
 interface Recommendation {
@@ -84,6 +84,32 @@ const recommendations: Recommendation[] = [
 const AVATAR_COLORS = ['#2a3a2a', '#1e2e3a', '#3a2a1e', '#2a1e3a', '#1e3a2e'];
 
 function Recommendations() {
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = cardsRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const quote = (e.target as Element).closest('.rec__card-quote');
+      if (!quote) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = quote;
+      const atTop = scrollTop <= 0;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+      const scrollingDown = e.deltaY > 0;
+      const scrollingUp = e.deltaY < 0;
+      const hasScroll = scrollHeight > clientHeight;
+
+      if (hasScroll && !(scrollingDown && atBottom) && !(scrollingUp && atTop)) {
+        e.preventDefault();
+      }
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    return () => container.removeEventListener('wheel', handleWheel);
+  }, []);
+
   return (
     <div className="rec">
       <header className="rec__header">
@@ -100,6 +126,7 @@ function Recommendations() {
       </div>
 
       <div
+        ref={cardsRef}
         className="rec__cards"
         style={{ '--card-count': recommendations.length } as CSSProperties}
       >
@@ -110,8 +137,8 @@ function Recommendations() {
             aria-label={`Recommendation from ${rec.name}`}
             style={{ '--card-glow': `rgba(6, 69, 22, ${0.12 + index * 0.03})` } as CSSProperties}
           >
+            <span className="rec__quote-mark" aria-hidden="true">&ldquo;</span>
             <div className="rec__card-quote">
-              <span className="rec__quote-mark" aria-hidden="true">&ldquo;</span>
               <p className="rec__quote-text">{rec.quote}</p>
             </div>
 
