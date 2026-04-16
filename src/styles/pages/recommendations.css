@@ -47,7 +47,7 @@
 /* ── Cards stack ─────────────────────────────────────────────────── */
 .rec__cards {
   display: grid;
-  grid-template-rows: repeat(var(--card-count, 5), 78vh);
+  grid-template-rows: repeat(var(--card-count, 5), minmax(78vh, auto));
   gap: 0;
   padding: var(--space-2xl) var(--section-padding-x) 0;
   max-width: var(--max-width);
@@ -57,7 +57,7 @@
 .rec__card {
   position: sticky;
   top: calc(var(--nav-height) + 12px + var(--card-offset, 0px));
-  height: 78vh;
+  min-height: 78vh;
   border-radius: 16px;
   padding: clamp(28px, 5vw, 52px);
   display: flex;
@@ -66,7 +66,6 @@
   overflow: hidden;
   border: 1px solid var(--border);
   transition: box-shadow var(--transition-slow);
-  will-change: transform;
 }
 
 .rec__card::before {
@@ -87,12 +86,12 @@
 .rec__card:nth-child(even) { background-color: #161616; }
 
 /* Stagger the sticky top so cards peek beneath each other */
-.rec__card:nth-child(1) { --card-offset: 0px; }
-.rec__card:nth-child(2) { --card-offset: 16px; }
-.rec__card:nth-child(3) { --card-offset: 32px; }
-.rec__card:nth-child(4) { --card-offset: 48px; }
-.rec__card:nth-child(5) { --card-offset: 64px; }
-.rec__card:nth-child(6) { --card-offset: 80px; }
+.rec__card:nth-child(1) { --card-offset: 0px;  z-index: 1; }
+.rec__card:nth-child(2) { --card-offset: 16px; z-index: 2; }
+.rec__card:nth-child(3) { --card-offset: 32px; z-index: 3; }
+.rec__card:nth-child(4) { --card-offset: 48px; z-index: 4; }
+.rec__card:nth-child(5) { --card-offset: 64px; z-index: 5; }
+.rec__card:nth-child(6) { --card-offset: 80px; z-index: 6; }
 
 /* ── Card inner layout ───────────────────────────────────────────── */
 .rec__card-quote {
@@ -223,11 +222,11 @@
 /* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .rec__cards {
-    grid-template-rows: repeat(var(--card-count, 5), 85vh);
+    grid-template-rows: repeat(var(--card-count, 5), minmax(85vh, auto));
   }
 
   .rec__card {
-    height: 85vh;
+    min-height: 85vh;
     padding: 28px 20px;
     border-radius: 12px;
   }
