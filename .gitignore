@@ -29,3 +29,4 @@ dist-ssr/
 # OS
 .DS_Store
 Thumbs.db
+/.squad/agents/selene/history.md
