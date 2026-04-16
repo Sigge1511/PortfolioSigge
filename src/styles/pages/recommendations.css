@@ -98,6 +98,7 @@
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
   scrollbar-width: none;
   position: relative;
   z-index: 1;
@@ -110,7 +111,7 @@
 .rec__quote-mark {
   font-size: 18rem;
   font-weight: 600;
-  line-height: 0.8;
+  line-height: 0.6;
   color: var(--accent-bright);
   opacity: 0.4;
   font-family: Georgia, serif;
@@ -118,6 +119,7 @@
   flex-shrink: 0;
   position: relative;
   z-index: 1;
+  margin-bottom: -2rem;
 }
 
 .rec__quote-text {
