@@ -4,4 +4,11 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ]
+  ,
+  "exclude": [
+    "**/AppData/**",
+    "**/Local/**",
+    "**/Temp/**",
+    "node_modules"
+  ]
 }

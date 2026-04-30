@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
-import { ProjectList } from '../components/ProjectList';
-import { projects } from '../projects';
+// ProjectList has a default export in the ProjectList folder; adjust import
+import ProjectList from '../components/ProjectList/index';
+import { projects } from '../projects.js';
 import '../styles/pages/projects.css';
 
 function Projects() {

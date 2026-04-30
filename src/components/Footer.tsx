@@ -7,10 +7,6 @@ function Footer() {
   return (
     <footer className="footer" aria-label="Site footer">
       <div className="footer__inner">
-        <div className="footer__left">
-          <span className="footer__brand">By Maja Sigfeldt</span>
-          <p className="footer__tagline">Developer &amp; Creator</p>
-        </div>
         <div className="footer__right">
           <nav className="footer__links" aria-label="Footer navigation">
             <Link to="/">Home</Link>

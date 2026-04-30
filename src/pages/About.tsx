@@ -1,6 +1,5 @@
-﻿import * as React from 'react';
+﻿import React from 'react';
 import '../styles/pages/about.css';
-import profileImg from '../assets/MSigfeldt.jpg';
 
 const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Design', 'Cyber security', 'Journalism', 'Dogs', 'Rare plants & gardening', 'Caffeine', 'Learning new stuff', 'Knitting', 'Art'];
 
@@ -17,7 +16,7 @@ function About() {
         <section className="about__profile" aria-label="Profile">
           <div className="about__photo-container">
             <img
-                src={profileImg}
+                src="/assets/MSigfeldt.jpg"
                 alt="Maja Sigfeldt"
                 className="about__profile-image"/>
           </div>
