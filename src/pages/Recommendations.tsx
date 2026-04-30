@@ -47,7 +47,7 @@ const recommendations: Recommendation[] = [
         initials: 'TT',
     },
   {
-      id: 3,
+      id: 4,
       name: 'Linda Hedenljung',
       title: 'Grävande reporter och författare',
       company: 'Östersunds-Posten',
@@ -58,7 +58,7 @@ const recommendations: Recommendation[] = [
       initials: 'LH',
   },
   {
-    id: 4,
+    id: 5,
     name: 'Kaj Söderin',
     title: 'Reporter',
     company: 'Länstidningen Östersund',
@@ -69,7 +69,7 @@ const recommendations: Recommendation[] = [
     initials: 'KS',
   },
   {
-      id: 5,
+      id: 6,
       name: 'Sabina Pettersson',
       title: 'Reporter',
       company: 'Arbetarbladet',
@@ -80,7 +80,7 @@ const recommendations: Recommendation[] = [
       initials: 'SP',
   },
   {
-    id: 6,
+    id: 7,
     name: 'Malin Palmqvist',
     title: 'Kulturredaktör och recensent',
     company: 'Länstidningen Östersund',

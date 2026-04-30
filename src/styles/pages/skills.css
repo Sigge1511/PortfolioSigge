@@ -11,7 +11,8 @@
 .skill-bar { display: grid; grid-template-columns: 140px 1fr 44px; align-items: center; gap: var(--space-md); }
 .skill-bar__name { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); white-space: nowrap; }
 .skill-bar__track { height: 3px; background-color: var(--border); position: relative; overflow: hidden; }
-.skill-bar__fill { height: 100%; background-color: var(--accent-bright); transform-origin: left; animation: barGrow 1s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.skill-bar__fill { height: 100%; background-color: var(--color-accent-light); transform-origin: left; animation: barGrow 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .skill-bar__pct { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); font-family: monospace; text-align: right; }
 .skill-tag-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); }

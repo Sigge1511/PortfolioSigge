@@ -1,4 +1,5 @@
 import React, { useState, type ChangeEvent } from 'react';
+import emailjs from '@emailjs/browser';
 import '../styles/pages/contact.css';
 
 interface FormFields {
@@ -52,11 +53,6 @@ function Contact() {
 
         setStatus('sending');
         try {
-            // Dynamically import emailjs so the app doesn't crash if the
-            // dependency isn't installed (e.g. after a machine reset).
-            const module = await import('@emailjs/browser').catch(() => null);
-            if (!module) throw new Error('EmailJS module not available');
-            const emailjs = module.default ?? module;
             await emailjs.send(
                 import.meta.env.VITE_EMAILJS_SERVICE_ID,
                 import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
@@ -77,27 +73,7 @@ function Contact() {
 
     return (
         <div className="contact">
-            <div className="contact__banner" style={{ backgroundImage: 'linear-gradient(135deg, rgba(5, 51, 17, 0.6) 0%, rgba(8, 64, 23, 0.6) 100%), url("../assets/hero.png")' }}>
-                <h1 className="contact__banner-title">Get in touch</h1>
-            </div>
-            <header className="contact__header">
-                <div className="contact__wrapper">
-                    <div className="contact__links">
-                        <a href="https://github.com/sigge1511" target="_blank" rel="noopener noreferrer" className="contact__link">
-                            <span className="contact__link-text">GitHub</span>
-                            <span className="contact__link-icon">→</span>
-                        </a>
-                        <a href="mailto:your.email@example.com" className="contact__link">
-                            <span className="contact__link-text">Email</span>
-                            <span className="contact__link-icon">→</span>
-                        </a>
-                        <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="contact__link">
-                            <span className="contact__link-text">LinkedIn</span>
-                            <span className="contact__link-icon">→</span>
-                        </a>
-                    </div>
-                </div>
-            </header>
+           
             <div className="contact__content">
                 <section className="contact__links-section">
                     <p className="contact__links-title">Find me here</p>
