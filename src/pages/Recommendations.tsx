@@ -13,16 +13,16 @@ interface Recommendation {
 }
 
 const recommendations: Recommendation[] = [
-  {
-    id: 1,
-    name: 'Thomas Tollstedt',
-    title: '.NET-student',
-    company: 'YH Akademin',
-    relationship: 'Klasskamrat',
-    date: 'Januari 2026',
-    quote:
-            'Maja är kommunikativ och är väldigt lättsam att interagera med, mycket trevligt! Hon håller en hög nivå på sina frågor/reflektioner samt projekt i samtliga kurser. Lägg till att hon mer än gärna hjälper andra studenter att bolla och felsöka sina projekt på sidan om sitt egna.Det märks att hon brinner och är duktig på att se helheten med kod och arkitektur!',
-    initials: 'TT',
+    {
+        id: 1,
+        name: 'Hamed Adeli Meadeli',
+        title: 'Software Engineer, mentor via #AddHer',
+        company: 'Sogeti',
+        relationship: 'Mentor',
+        date: 'April 2026',
+        quote:
+            'Det som sticker ut är inte bara koden, utan också hur hon strukturerar och tänker kring lösningen — något som inte alltid är lätt i början av karriären. Jag tycker att hon är en stark kandidat för en .NET - utvecklarroll och har stor potential att växa snabbt i en professionell miljö. Definitivt någon att hålla ögonen på.',
+        initials: 'TT',
     },
     {
         id: 2,
@@ -32,8 +32,19 @@ const recommendations: Recommendation[] = [
         relationship: 'Bollplank',
         date: 'September 2024',
         quote:
-            'Maja är driven, hon har vågat ta en LIA hos ett startup för att försöka lära sig så mycket som möjligt. Eftersom Maja kommer från en bakgrund som journalist så är hon också sjukt duktig på att både "gräva" fram saker men också analysera detta och se saker ur flera vinklar.Den information hon samlar ihop i sina analyser omvandlar hon sedan till information som hon förmedlar anpassad till mottagaren, perfekt nu när AI tar över själva kodandet mer och de sociala värdena blir viktigare för en arbetsgivare. Hon har också ett stort eget intresse för cybersäkerhet och man kan verkligen se hur hon brinner för det när hon pratar om det, det smittar av sig direkt och man vill direkt lära sig ännu mer själv. Utöver detta är Maja en sjukt driven människa som vill otroligt mycket, hon har många grymma idéer och hjälper gladeligen andra med sina.Även om hon är lite av en perfektionist när de kommer till att koda och vill verkligen inte leverera något som innehåller fel eller ostrukturerad kod, så skulle ju inte jag säga att det är något negativt heller.',
+            'Eftersom Maja kommer från en bakgrund som journalist så är hon också sjukt duktig på att både "gräva" fram saker men också analysera detta och se saker ur flera vinklar. Den information hon samlar ihop i sina analyser omvandlar hon sedan till information som hon förmedlar anpassad till mottagaren, perfekt nu när AI tar över själva kodandet mer och de sociala värdena blir viktigare för en arbetsgivare. Hon har också ett stort eget intresse för cybersäkerhet och man kan verkligen se hur hon brinner för det när hon pratar om det, det smittar av sig direkt och man vill direkt lära sig ännu mer själv. Utöver detta är Maja en sjukt driven människa som vill otroligt mycket, hon har många grymma idéer och hjälper gladeligen andra med sina.',
         initials: 'AD',
+    },
+    {
+        id: 3,
+        name: 'Thomas Tollstedt',
+        title: '.NET-student',
+        company: 'YH Akademin',
+        relationship: 'Klasskamrat',
+        date: 'Januari 2026',
+        quote:
+            'Maja är kommunikativ och är väldigt lättsam att interagera med, mycket trevligt! Hon håller en hög nivå på sina frågor/reflektioner samt projekt i samtliga kurser. Lägg till att hon mer än gärna hjälper andra studenter att bolla och felsöka sina projekt på sidan om sitt egna. Det märks att hon brinner och är duktig på att se helheten med kod och arkitektur!',
+        initials: 'TT',
     },
   {
       id: 3,
