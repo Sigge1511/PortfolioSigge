@@ -7,7 +7,7 @@ const skillCategories: SkillCategory[] = [
     { title: 'Frontend', type: 'bars', skills: [{ name: 'React', level: 20 }, { name: 'ASP.NET CORE', level: 75 }, { name: 'TypeScript', level: 50 }, { name: 'CSS / HTML', level: 85 }, { name: 'XAML', level: 60 }, { name: 'Vite', level: 10 }] as Skill[] },
     { title: 'Backend', type: 'bars', skills: [{ name: 'C# / .NET', level: 85 }, { name: 'ASP.NET Core', level: 85 }, { name: 'Entity Framework Core', level: 80 }, { name: 'REST APIs', level: 80 }, { name: 'TSQL & Linq', level: 75 }, { name: 'Context Driven AI', level: 62 }] as Skill[] },
     { title: 'Tools', type: 'bars', skills: [{ name: 'Git / GitHub', level: 85 }, { name: 'VS Code', level: 50 }, { name: 'Visual Studio', level: 75 }, { name: 'Docker', level: 60 }, { name: 'Claude & Copilot', level: 63 }, { name: 'SSMS', level: 60 }] as Skill[] },
-  { title: 'Learning', type: 'tags', skills: ['Docker', 'PostgreSQL', 'Redis', 'GraphQL', 'xUnit', 'SignalR', 'CI/CD', 'OWASP'] },
+  { title: 'What I want to learn and improve next', type: 'tags', skills: ['CI/CD', 'New AI agents', 'Flutter/Bash', 'React', 'Open Source', 'Zero Trust', 'Cloud/Azure', 'NIS2'] },
 ];
 
 function Skills() {
