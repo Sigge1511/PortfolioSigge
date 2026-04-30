@@ -4,12 +4,13 @@
     "target": "ES2023",
     "useDefineForClassFields": true,
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "module": "ES2022",
     "types": ["vite/client"],
+    "esModuleInterop": true,
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "nodenext",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
@@ -25,4 +26,12 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["src"]
+  ,
+  "exclude": [
+    "**/AppData/**",
+    "**/Local/**",
+    "**/Temp/**",
+    "**/AppData/Local/Temp/**",
+    "node_modules"
+  ]
 }

@@ -86,19 +86,19 @@
 .rec__card:nth-child(even) { background-color: #161616; }
 
 /* Stagger the sticky top so cards peek beneath each other */
-.rec__card:nth-child(1) { --card-offset: 0px;  z-index: 1; }
-.rec__card:nth-child(2) { --card-offset: 16px; z-index: 2; }
-.rec__card:nth-child(3) { --card-offset: 32px; z-index: 3; }
-.rec__card:nth-child(4) { --card-offset: 48px; z-index: 4; }
-.rec__card:nth-child(5) { --card-offset: 64px; z-index: 5; }
-.rec__card:nth-child(6) { --card-offset: 80px; z-index: 6; }
+.rec__card:nth-child(1) { --card-offset: 0px;  z-index: 0; }
+.rec__card:nth-child(2) { --card-offset: 16px; z-index: 1; }
+.rec__card:nth-child(3) { --card-offset: 32px; z-index: 2; }
+.rec__card:nth-child(4) { --card-offset: 48px; z-index: 3; }
+.rec__card:nth-child(5) { --card-offset: 64px; z-index: 4; }
+.rec__card:nth-child(6) { --card-offset: 80px; z-index: 5; }
+.rec__card:nth-child(7) { --card-offset: 96px; z-index: 6; }
 
 /* ── Card inner layout ───────────────────────────────────────────── */
 .rec__card-quote {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  overscroll-behavior: contain;
   scrollbar-width: none;
   position: relative;
   z-index: 1;
@@ -111,7 +111,7 @@
 .rec__quote-mark {
   font-size: 18rem;
   font-weight: 600;
-  line-height: 0.6;
+  line-height: 0.8;
   color: var(--accent-bright);
   opacity: 0.4;
   font-family: Georgia, serif;
@@ -119,7 +119,6 @@
   flex-shrink: 0;
   position: relative;
   z-index: 1;
-  margin-bottom: -2rem;
 }
 
 .rec__quote-text {
@@ -241,11 +240,13 @@
     border-radius: 12px;
   }
 
-  .rec__card:nth-child(2) { --card-offset: 10px; }
-  .rec__card:nth-child(3) { --card-offset: 20px; }
-  .rec__card:nth-child(4) { --card-offset: 30px; }
-  .rec__card:nth-child(5) { --card-offset: 40px; }
-  .rec__card:nth-child(6) { --card-offset: 50px; }
+  .rec__card:nth-child(1) { --card-offset: 0px;  z-index: 0; }
+  .rec__card:nth-child(2) { --card-offset: 10px; z-index: 1; }
+  .rec__card:nth-child(3) { --card-offset: 20px; z-index: 2; }
+  .rec__card:nth-child(4) { --card-offset: 30px; z-index: 3; }
+  .rec__card:nth-child(5) { --card-offset: 40px; z-index: 4; }
+  .rec__card:nth-child(6) { --card-offset: 50px; z-index: 5; }
+  .rec__card:nth-child(7) { --card-offset: 60px; z-index: 6; }
 
   .rec__quote-mark { font-size: 10rem; }
 

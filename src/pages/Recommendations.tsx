@@ -99,7 +99,7 @@ function Recommendations() {
     <div className="rec">
       <header className="rec__header">
         <div className="rec__header-inner">
-          <p className="rec__page-label">Don&rsquo;t take my word for it</p>          
+          <p className="rec__page-label">Don&rsquo;t take my word for it</p>
         </div>
       </header>
 
