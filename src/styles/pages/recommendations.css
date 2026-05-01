@@ -119,13 +119,13 @@
 
 .rec__quote-mark {
   position: absolute;
-  top: -40px;
-  left: -20px;
+  top: -10px;
+  left: -5px;
   font-size: clamp(10rem, 20vw, 24rem);
   font-weight: 700;
   line-height: 0.6;
   color: var(--accent-bright);
-  opacity: 0.15;
+  opacity: 0.2;
   font-family: Georgia, serif;
   user-select: none;
   pointer-events: none;
@@ -302,8 +302,9 @@
 
   .rec__quote-mark {
     font-size: clamp(8rem, 18vw, 16rem);
-    top: -30px;
-    left: -15px;
+    top: -8px;
+    left: -4px;
+    opacity: 0.25;
   }
 
   .rec__quote-text {

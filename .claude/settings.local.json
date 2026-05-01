@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(npx typescript *)",
+      "Bash(npx eslint *)",
+      "Bash(npm install *)"
     ]
   }
 }

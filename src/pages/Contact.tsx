@@ -1,12 +1,16 @@
-import * as React from 'react';
-import { useState, type ChangeEvent, type SyntheticEvent } from 'react';
-// Do not import '@emailjs/browser' directly here to avoid build errors when
-// the dependency is not installed in the environment where the code is
-// being type-checked. If you run the app with that package installed the
-// library may be available on `globalThis.emailjs` (for example via a
-// separate script) or you can restore the static import and install the
-// dependency.
+import React, { useState, type ChangeEvent, type SyntheticEvent } from 'react';
 import '../styles/pages/contact.css';
+
+declare global {
+    interface Window {
+        emailjs?: {
+            send: (serviceId: string, templateId: string, templateParams: Record<string, string>, publicKey: string) => Promise<void>;
+        };
+        VITE_EMAILJS_SERVICE_ID?: string;
+        VITE_EMAILJS_TEMPLATE_ID?: string;
+        VITE_EMAILJS_PUBLIC_KEY?: string;
+    }
+}
 
 interface FormFields {
     name: string;
@@ -62,15 +66,15 @@ function Contact() {
             // Try to use a globally-available emailjs if present (some setups
             // may expose it). If it's missing, fall back to a simulated send
             // so the app can build and run without the package installed.
-            const globalEmailJs = (globalThis as any).emailjs;
+            const globalEmailJs = window.emailjs;
             if (globalEmailJs && typeof globalEmailJs.send === 'function') {
                 await globalEmailJs.send(
                     // When using the real library, ensure these values are
                     // provided by your environment (e.g. Vite's import.meta.env).
-                    (globalThis as any).VITE_EMAILJS_SERVICE_ID || '',
-                    (globalThis as any).VITE_EMAILJS_TEMPLATE_ID || '',
+                    window.VITE_EMAILJS_SERVICE_ID || '',
+                    window.VITE_EMAILJS_TEMPLATE_ID || '',
                     { name: fields.name, email: fields.email, message: fields.message },
-                    (globalThis as any).VITE_EMAILJS_PUBLIC_KEY || '',
+                    window.VITE_EMAILJS_PUBLIC_KEY || '',
                 );
             } else {
                 // Simulate a successful send so the UI still behaves during
@@ -81,7 +85,6 @@ function Contact() {
             setStatus('success');
             setFields({ name: '', email: '', message: '' });
         } catch (err) {
-            // eslint-disable-next-line no-console
             console.error('Failed to send email', err);
             setStatus('error');
         }

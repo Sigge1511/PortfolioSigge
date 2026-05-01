@@ -32,7 +32,7 @@ const recommendations: Recommendation[] = [
         relationship: 'Bollplank',
         date: 'September 2024',
         quote:
-            'Eftersom Maja kommer från en bakgrund som journalist så är hon också sjukt duktig på att både "gräva" fram saker men också analysera detta och se saker ur flera vinklar. Den information hon samlar ihop i sina analyser omvandlar hon sedan till information som hon förmedlar anpassad till mottagaren, perfekt nu när AI tar över själva kodandet mer och de sociala värdena blir viktigare för en arbetsgivare. Hon har också ett stort eget intresse för cybersäkerhet och man kan verkligen se hur hon brinner för det när hon pratar om det, det smittar av sig direkt och man vill direkt lära sig ännu mer själv. Utöver detta är Maja en sjukt driven människa som vill otroligt mycket, hon har många grymma idéer och hjälper gladeligen andra med sina.',
+            'Hon har också ett stort eget intresse för cybersäkerhet och man kan verkligen se hur hon brinner för det när hon pratar om det, det smittar av sig direkt och man vill direkt lära sig ännu mer själv. Utöver detta är Maja en sjukt driven människa som vill otroligt mycket, hon har många grymma idéer och hjälper gladeligen andra med sina.',
         initials: 'AD',
     },
     {
