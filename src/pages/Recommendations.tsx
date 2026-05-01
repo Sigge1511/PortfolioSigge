@@ -22,7 +22,7 @@ const recommendations: Recommendation[] = [
         date: 'April 2026',
         quote:
             'Det som sticker ut är inte bara koden, utan också hur hon strukturerar och tänker kring lösningen — något som inte alltid är lätt i början av karriären. Jag tycker att hon är en stark kandidat för en .NET - utvecklarroll och har stor potential att växa snabbt i en professionell miljö. Definitivt någon att hålla ögonen på.',
-        initials: 'TT',
+        initials: 'HA',
     },
     {
         id: 2,
@@ -148,6 +148,7 @@ function Recommendations() {
             aria-label={`Recommendation from ${rec.name}`}
             style={{ '--card-glow': `rgba(6, 69, 22, ${0.12 + index * 0.03})` } as CSSProperties}
           >
+            <span className="rec__card-header-badge">{rec.relationship}</span>
             <span className="rec__quote-mark" aria-hidden="true">&ldquo;</span>
             <div className="rec__card-quote">
               <p className="rec__quote-text">{rec.quote}</p>
@@ -168,7 +169,6 @@ function Recommendations() {
                 <span className="rec__person-name">{rec.name}</span>
                 <span className="rec__person-role">{rec.title} · {rec.company}</span>
               </div>
-              <span className="rec__relation-badge">{rec.relationship}</span>
             </footer>
           </article>
         ))}

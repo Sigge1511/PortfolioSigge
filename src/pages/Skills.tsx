@@ -1,5 +1,4 @@
-﻿import React from 'react';
-import '../styles/pages/skills.css';
+﻿import '../styles/pages/skills.css';
 
 interface Skill { name: string; level: number; }
 interface SkillCategory { title: string; type: 'bars' | 'tags'; skills: Skill[] | string[]; }

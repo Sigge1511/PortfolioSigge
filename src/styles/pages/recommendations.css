@@ -110,7 +110,9 @@
   overflow-y: auto;
   scrollbar-width: none;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  padding: var(--space-xl) 0 var(--space-md) 0;
+  scroll-behavior: smooth;
 }
 
 .rec__card-quote::-webkit-scrollbar {
@@ -119,13 +121,13 @@
 
 .rec__quote-mark {
   position: absolute;
-  top: -10px;
-  left: -5px;
+  top: 30px;
+  left: 20px;
   font-size: clamp(10rem, 20vw, 24rem);
   font-weight: 700;
   line-height: 0.6;
   color: var(--accent-bright);
-  opacity: 0.2;
+  opacity: 0.25;
   font-family: Georgia, serif;
   user-select: none;
   pointer-events: none;
@@ -208,11 +210,31 @@
   text-transform: uppercase;
   font-weight: 600;
   color: var(--accent-bright);
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent-bright);
   padding: 3px 8px;
   border-radius: 999px;
   white-space: nowrap;
   opacity: 0.9;
+}
+
+/* Badge positioned in top-right corner of card */
+.rec__card-header-badge {
+  position: absolute;
+  top: clamp(16px, 3vw, 24px);
+  right: clamp(16px, 3vw, 24px);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--accent-bright);
+  border: 1px solid var(--accent-bright);
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0.9;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
 }
 
 /* ── Expand hint ─────────────────────────────────────────────────── */
@@ -301,10 +323,10 @@
   .rec__card:nth-child(7) { --card-offset: 60px; z-index: 6; }
 
   .rec__quote-mark {
-    font-size: clamp(8rem, 18vw, 16rem);
-    top: -8px;
-    left: -4px;
-    opacity: 0.25;
+    font-size: clamp(8rem, 15vw, 12rem);
+    top: 35px;
+    left: 15px;
+    opacity: 0.35;
   }
 
   .rec__quote-text {
@@ -322,5 +344,12 @@
 
   .rec__relation-badge {
     display: none;
+  }
+
+  .rec__card-header-badge {
+    top: 12px;
+    right: 12px;
+    font-size: 0.55rem;
+    padding: 3px 8px;
   }
 }

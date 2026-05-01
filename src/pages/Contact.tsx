@@ -1,16 +1,6 @@
-import React, { useState, type ChangeEvent, type SyntheticEvent } from 'react';
+import React, { useState, type ChangeEvent } from 'react';
+import emailjs from '@emailjs/browser';
 import '../styles/pages/contact.css';
-
-declare global {
-    interface Window {
-        emailjs?: {
-            send: (serviceId: string, templateId: string, templateParams: Record<string, string>, publicKey: string) => Promise<void>;
-        };
-        VITE_EMAILJS_SERVICE_ID?: string;
-        VITE_EMAILJS_TEMPLATE_ID?: string;
-        VITE_EMAILJS_PUBLIC_KEY?: string;
-    }
-}
 
 interface FormFields {
     name: string;
@@ -53,7 +43,7 @@ function Contact() {
         }
     }
 
-    async function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
+    async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
         e.preventDefault();
         const validationErrors = validate(fields);
         if (Object.keys(validationErrors).length > 0) {
@@ -63,28 +53,19 @@ function Contact() {
 
         setStatus('sending');
         try {
-            // Try to use a globally-available emailjs if present (some setups
-            // may expose it). If it's missing, fall back to a simulated send
-            // so the app can build and run without the package installed.
-            const globalEmailJs = window.emailjs;
-            if (globalEmailJs && typeof globalEmailJs.send === 'function') {
-                await globalEmailJs.send(
-                    // When using the real library, ensure these values are
-                    // provided by your environment (e.g. Vite's import.meta.env).
-                    window.VITE_EMAILJS_SERVICE_ID || '',
-                    window.VITE_EMAILJS_TEMPLATE_ID || '',
-                    { name: fields.name, email: fields.email, message: fields.message },
-                    window.VITE_EMAILJS_PUBLIC_KEY || '',
-                );
-            } else {
-                // Simulate a successful send so the UI still behaves during
-                // development or in environments without the dependency.
-                await new Promise((res) => setTimeout(res, 700));
-            }
-
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                { name: fields.name, email: fields.email, message: fields.message },
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+            );
             setStatus('success');
             setFields({ name: '', email: '', message: '' });
         } catch (err) {
+            // Log the error for debugging; show a friendly error state to the user.
+            // If you want the real email sending behavior, run `npm install` to
+            // restore the dependency and restart the dev server.
+            // eslint-disable-next-line no-console
             console.error('Failed to send email', err);
             setStatus('error');
         }
