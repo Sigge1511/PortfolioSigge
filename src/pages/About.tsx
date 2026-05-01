@@ -1,7 +1,7 @@
-﻿import '../styles/pages/about.css';
-import profileImg from '../assets/MSigfeldt.jpg';
+﻿import profileImg from '../assets/MSigfeldt.jpg';
+import '../styles/pages/about.css';
 
-const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Music', 'Defense', 'Design', 'Cyber security', 'Dogs', 'Rare plants & gardening', 'Caffeine', 'Knitting', 'Painting'];
+const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Design', 'Cyber security', 'Journalism', 'Dogs', 'Rare plants & gardening', 'Caffeine', 'Learning new stuff', 'Knitting', 'Art'];
 
 function About() {
   return (
