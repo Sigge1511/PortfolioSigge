@@ -1,5 +1,4 @@
-﻿import React from 'react';
-import profileImg from '../assets/MSigfeldt.jpg';
+﻿import profileImg from '../assets/MSigfeldt.jpg';
 import '../styles/pages/about.css';
 
 const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Design', 'Cyber security', 'Journalism', 'Dogs', 'Rare plants & gardening', 'Caffeine', 'Learning new stuff', 'Knitting', 'Art'];

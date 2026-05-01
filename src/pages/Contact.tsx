@@ -1,4 +1,4 @@
-import React, { useState, useRef, type ChangeEvent } from 'react';
+import { useState, useRef, useEffect, type ChangeEvent, type SyntheticEvent } from 'react';
 import emailjs from '@emailjs/browser';
 import '../styles/pages/contact.css';
 
@@ -63,7 +63,7 @@ function Contact() {
     const [errors, setErrors] = useState<FormErrors>({});
     const [status, setStatus] = useState<SubmitStatus>('idle');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const submitTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const formRef = useRef<HTMLFormElement>(null);
 
     function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -74,7 +74,7 @@ function Contact() {
         }
     }
 
-    async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    async function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
         e.preventDefault();
 
         // Prevent double submission
@@ -102,8 +102,8 @@ function Contact() {
 
         try {
             await emailjs.send(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                import.meta.env.VITE_EMAILJS_SERVICE_ID!,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
                 {
                     name: fields.name,
                     email: fields.email,
@@ -112,7 +112,7 @@ function Contact() {
                     from_name: fields.name,
                     reply_to: fields.email
                 },
-                import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY!,
             );
 
             setStatus('success');
@@ -147,7 +147,7 @@ function Contact() {
     }
 
     // Cleanup timeout on unmount
-    React.useEffect(() => {
+    useEffect(() => {
         return () => {
             if (submitTimeoutRef.current) {
                 clearTimeout(submitTimeoutRef.current);
