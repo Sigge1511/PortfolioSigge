@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import profileImg from '../assets/MSigfeldt.jpg';
 import '../styles/pages/about.css';
 
 const interests = ['Politics', 'Geopolitics & conflicts', 'History of war', 'Design', 'Cyber security', 'Journalism', 'Dogs', 'Rare plants & gardening', 'Caffeine', 'Learning new stuff', 'Knitting', 'Art'];
@@ -16,7 +17,7 @@ function About() {
         <section className="about__profile" aria-label="Profile">
           <div className="about__photo-container">
             <img
-                src="/assets/MSigfeldt.jpg"
+                src={profileImg}
                 alt="Maja Sigfeldt"
                 className="about__profile-image"/>
           </div>

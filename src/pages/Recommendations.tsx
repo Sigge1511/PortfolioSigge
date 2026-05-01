@@ -21,7 +21,7 @@ const recommendations: Recommendation[] = [
         relationship: 'Mentor',
         date: 'April 2026',
         quote:
-            'Det som sticker ut är inte bara koden, utan också hur hon strukturerar och tänker kring lösningen — något som inte alltid är lätt i början av karriären. Jag tycker att hon är en stark kandidat för en .NET - utvecklarroll och har stor potential att växa snabbt i en professionell miljö. Definitivt någon att hålla ögonen på.',
+            'Det som sticker ut är inte bara koden, utan också hur hon strukturerar och tänker kring lösningen - något som inte alltid är lätt i början av karriären. Jag tycker att hon är en stark kandidat för en .NET-utvecklarroll och har stor potential att växa snabbt i en professionell miljö. Definitivt någon att hålla ögonen på.',
         initials: 'HA',
     },
     {
@@ -126,15 +126,16 @@ function Recommendations() {
       <header className="rec__header">
         <div className="rec__header-inner">
           <p className="rec__page-label">Don&rsquo;t take my word for it</p>
-        </div>
+              </div>
+              <div className="rec__scroll-hint" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 1v12M2 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Scroll to read
+              </div>
       </header>
 
-      <div className="rec__scroll-hint" aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 1v12M2 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        Scroll to read
-      </div>
+      
 
       <div
         ref={cardsRef}

@@ -21,12 +21,14 @@
 }
 
 .rec__page-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent-bright);
-  margin-bottom: var(--space-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+/*    margin-top: var(--space-md);
+    margin-left: var(--space-md);*/
+    margin-bottom: var(--space-md);
 }
 
 .rec__headline {

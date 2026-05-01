@@ -21,6 +21,8 @@
 .contact-form__label { font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
 .contact-form__input, .contact-form__textarea { background-color: var(--bg-secondary); border: 1px solid var(--border); color: var(--text-primary); font-family: var(--font-main); font-size: 1rem; padding: var(--space-md); outline: none; width: 100%; transition: border-color var(--transition); }
 .contact-form__input:focus, .contact-form__textarea:focus { border-color: var(--accent-bright); }
+.contact-form__input--error, .contact-form__textarea--error { border-color: #e05c5c; background-color: color-mix(in srgb, #e05c5c 8%, transparent); }
+.contact-form__input--error:focus, .contact-form__textarea--error:focus { border-color: #e05c5c; outline: 2px solid color-mix(in srgb, #e05c5c 30%, transparent); }
 .contact-form__textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
 .contact-form__submit { align-self: flex-start; background-color: var(--accent); color: var(--text-primary); border: 1px solid var(--accent); padding: 14px 32px; font-family: var(--font-main); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background-color var(--transition), border-color var(--transition); }
 .contact-form__submit:hover { background-color: var(--accent-light); border-color: var(--accent-light); }
