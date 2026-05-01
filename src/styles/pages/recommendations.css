@@ -301,19 +301,19 @@
 /* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .rec__cards {
-    grid-template-rows: repeat(var(--card-count, 5), clamp(350px, 45vh, 500px));
+    grid-template-rows: repeat(var(--card-count, 5), clamp(500px, 65vh, 700px));
   }
 
   .rec__card {
     min-height: clamp(350px, 45vh, 500px);
-    max-height: clamp(450px, 70vh, 700px);
+    max-height: clamp(600px, 85vh, 900px);
     padding: 24px 20px;
     border-radius: 12px;
   }
 
   .rec__card:hover,
   .rec__card:focus-within {
-    max-height: clamp(500px, 80vh, 800px);
+    max-height: clamp(700px, 90vh, 1000px);
   }
 
   .rec__card:nth-child(1) { --card-offset: 0px;  z-index: 0; }
