@@ -45,15 +45,7 @@ const validateEnvVars = () => {
         return false;
     }
 
-    // Initialize EmailJS with public key
-    try {
-        emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY!);
-        console.log('EmailJS initialized successfully');
-        return true;
-    } catch (error) {
-        console.error('Failed to initialize EmailJS:', error);
-        return false;
-    }
+    return true;
 };
 
 const ENV_VARS_VALID = validateEnvVars();
@@ -127,7 +119,8 @@ function Contact() {
                     to_name: 'Maja Sigfeldt',
                     from_name: fields.name,
                     reply_to: fields.email
-                }
+                },
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY!,
             );
 
             setStatus('success');
