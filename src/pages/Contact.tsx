@@ -14,6 +14,10 @@ interface FormErrors {
     message?: string;
 }
 
+interface GeneralError {
+    message?: string;
+}
+
 type SubmitStatus = 'idle' | 'sending' | 'success' | 'error';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,6 +65,7 @@ function validate(fields: FormFields): FormErrors {
 function Contact() {
     const [fields, setFields] = useState<FormFields>({ name: '', email: '', message: '' });
     const [errors, setErrors] = useState<FormErrors>({});
+    const [generalError, setGeneralError] = useState<string>('');
     const [status, setStatus] = useState<SubmitStatus>('idle');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const submitTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -71,6 +76,10 @@ function Contact() {
         setFields((prev) => ({ ...prev, [name]: value }));
         if (errors[name as keyof FormErrors]) {
             setErrors((prev) => ({ ...prev, [name]: undefined }));
+        }
+        // Clear general error when user starts typing
+        if (generalError) {
+            setGeneralError('');
         }
     }
 
@@ -91,9 +100,8 @@ function Contact() {
         // Check environment variables
         if (!ENV_VARS_VALID) {
             setStatus('error');
-            setErrors({
-                message: 'Email service is not configured. Please contact me directly at msigfeldt@gmail.com'
-            });
+            setGeneralError('Email service is not configured. Please contact me directly at msigfeldt@gmail.com');
+            setIsSubmitting(false);
             return;
         }
 
@@ -118,6 +126,7 @@ function Contact() {
             setStatus('success');
             setFields({ name: '', email: '', message: '' });
             setErrors({});
+            setGeneralError('');
 
             // Reset form
             if (formRef.current) {
@@ -138,9 +147,7 @@ function Contact() {
 
             // Provide more specific error message
             const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-            setErrors({
-                message: `Failed to send message: ${errorMessage}. Please try again or email me directly at msigfeldt@gmail.com`
-            });
+            setGeneralError(`Failed to send message: ${errorMessage}. Please try again or email me directly at msigfeldt@gmail.com`);
         } finally {
             setIsSubmitting(false);
         }
@@ -272,7 +279,7 @@ function Contact() {
 
                     {status === 'error' && (
                         <p className="contact-form__status contact-form__status--error" role="alert" aria-live="assertive">
-                            {errors.message || 'Something went wrong. Please try again or email me directly at msigfeldt@gmail.com'}
+                            {generalError || 'Something went wrong. Please try again or email me directly at msigfeldt@gmail.com'}
                         </p>
                     )}
                 </section>
