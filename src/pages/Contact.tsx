@@ -14,10 +14,6 @@ interface FormErrors {
     message?: string;
 }
 
-interface GeneralError {
-    message?: string;
-}
-
 type SubmitStatus = 'idle' | 'sending' | 'success' | 'error';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
