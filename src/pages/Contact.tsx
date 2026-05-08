@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, type ChangeEvent, type SyntheticEvent } from 'react';
 import emailjs from '@emailjs/browser';
 import '../styles/pages/contact.css';
+import DOMPurify from 'dompurify';
 
 interface FormFields {
     name: string;
@@ -11,10 +12,6 @@ interface FormFields {
 interface FormErrors {
     name?: string;
     email?: string;
-    message?: string;
-}
-
-interface GeneralError {
     message?: string;
 }
 
@@ -51,7 +48,17 @@ const validateEnvVars = () => {
 const ENV_VARS_VALID = validateEnvVars();
 
 function validate(fields: FormFields): FormErrors {
+    // To help user understand what went wrong, we create an object to hold error messages for each field.
     const errors: FormErrors = {};
+    //*************************************************
+    // A pattern to check for chars often used in code to help prevent injection attacks, even though we also sanitize inputs before sending.
+    const forbiddenChars = /[<>{};]/;
+    if (forbiddenChars.test(fields.message)) {
+        errors.message = 'Please do not use characters like < > or { } for security reasons. If you need to send me code, find me on Discord ;)';
+    }
+    //*************************************************
+    //Trimming and checking valid inputs
+    //with negative if checks.
     if (!fields.name.trim()) errors.name = 'Name is required.';
     if (!fields.email.trim()) {
         errors.email = 'Email is required.';
@@ -113,12 +120,12 @@ function Contact() {
                 import.meta.env.VITE_EMAILJS_SERVICE_ID!,
                 import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
                 {
-                    name: fields.name,
-                    email: fields.email,
-                    message: fields.message,
+                    name: DOMPurify.sanitize(fields.name),
+                    email: DOMPurify.sanitize(fields.email),
+                    message: DOMPurify.sanitize(fields.message),
                     to_name: 'Maja Sigfeldt',
-                    from_name: fields.name,
-                    reply_to: fields.email
+                    from_name: DOMPurify.sanitize(fields.name),
+                    reply_to: DOMPurify.sanitize(fields.email)
                 },
                 import.meta.env.VITE_EMAILJS_PUBLIC_KEY!,
             );
