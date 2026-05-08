@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, type ChangeEvent, type SyntheticEvent } from 'react';
 import emailjs from '@emailjs/browser';
 import '../styles/pages/contact.css';
+import DOMPurify from 'dompurify';
 
 interface FormFields {
     name: string;
@@ -109,12 +110,12 @@ function Contact() {
                 import.meta.env.VITE_EMAILJS_SERVICE_ID!,
                 import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
                 {
-                    name: fields.name,
-                    email: fields.email,
-                    message: fields.message,
+                    name: DOMPurify.sanitize(fields.name),
+                    email: DOMPurify.sanitize(fields.email),
+                    message: DOMPurify.sanitize(fields.message),
                     to_name: 'Maja Sigfeldt',
-                    from_name: fields.name,
-                    reply_to: fields.email
+                    from_name: DOMPurify.sanitize(fields.name),
+                    reply_to: DOMPurify.sanitize(fields.email)
                 },
                 import.meta.env.VITE_EMAILJS_PUBLIC_KEY!,
             );
