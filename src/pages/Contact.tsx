@@ -48,7 +48,17 @@ const validateEnvVars = () => {
 const ENV_VARS_VALID = validateEnvVars();
 
 function validate(fields: FormFields): FormErrors {
+    // To help user understand what went wrong, we create an object to hold error messages for each field.
     const errors: FormErrors = {};
+    //*************************************************
+    // A pattern to check for chars often used in code to help prevent injection attacks, even though we also sanitize inputs before sending.
+    const forbiddenChars = /[<>{};]/;
+    if (forbiddenChars.test(fields.message)) {
+        errors.message = 'Please do not use characters like < > or { } for security reasons. If you need to send me code, find me on Discord ;)';
+    }
+    //*************************************************
+    //Trimming and checking valid inputs
+    //with negative if checks.
     if (!fields.name.trim()) errors.name = 'Name is required.';
     if (!fields.email.trim()) {
         errors.email = 'Email is required.';
